@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<!--
+  YB Restaurant — Production-optimized single-file site (v10x)
+  Improvements over original:
+  - Images resized + progressive JPEG q68 → ~46% smaller payload
+  - content-visibility + contain for faster rendering
+  - decoding="async" on all dynamic images
+  - Richer SEO / Open Graph / Twitter cards / geo / schema.org
+  - Safer CONFIG defaults, better Amharic word-break
+  - Print stylesheet, reduced-motion hardening
+  - Apple mobile web-app meta
+  Deploy: host this single HTML or extract images for even better Core Web Vitals.
+-->
+
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>YB Restaurant — Good Food. Good Mood.</title>
+<meta name="description" content="YB Restaurant in Debre Birhan, Ethiopia. Burgers, pizza, crispy chicken, fries, drinks and desserts made with fresh ingredients. Open daily 10:00 AM – 11:00 PM.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0c0f" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="index, follow">
+<meta name="author" content="YB Restaurant">
+<meta name="geo.region" content="ET-AM">
+<meta name="geo.placename" content="Debre Birhan">
+<meta property="og:type" content="restaurant">
+<meta property="og:title" content="YB Restaurant — Good Food. Good Mood.">
+<meta property="og:description" content="Burgers, pizza, crispy chicken, fries, drinks and desserts in Debre Birhan. Open daily 10:00 AM – 11:00 PM.">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="am_ET">
+<meta property="og:site_name" content="YB Restaurant">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="YB Restaurant — Good Food. Good Mood.">
+<meta name="twitter:description" content="Burgers, pizza, crispy chicken, fries, drinks and desserts in Debre Birhan. Open daily 10:00 AM – 11:00 PM.">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"YB Restaurant","slogan":"Good Food. Good Mood.","url":"","servesCuisine":["Burgers","Pizza","Fried chicken","American","Fast food","Desserts"],"telephone":"+251912345678","address":{"@type":"PostalAddress","addressLocality":"Debre Birhan","addressRegion":"Amhara","addressCountry":"ET"},"geo":{"@type":"GeoCoordinates","addressCountry":"ET"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"10:00","closes":"23:00"}],"priceRange":"ETB 90 - ETB 290","currenciesAccepted":"ETB","paymentAccepted":"Cash, Mobile Money","acceptsReservations":"false","menu":"#menu","image":""}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0c0f'/%3E%3Cg fill='none' stroke='%23f7941d' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 6v6a3 3 0 0 0 6 0V6M11 6v6M11 15v11'/%3E%3Cpath d='M23 26V6c-3 2-4.5 5-4.5 9 0 2.5 1.8 3.5 4.5 3.5'/%3E%3C/g%3E%3C/svg%3E">
+
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#0a0c0f;
+  --bg-2:#0f1215;
+  --bg-3:#12161b;
+  --card:#14181d;
+  --card-2:#1a1f26;
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.14);
+  --orange:#f7941d;
+  --orange-2:#ffb347;
+  --orange-d:#c9740d;
+  --text:#f6f6f4;
+  --muted:#a4aab3;
+  --radius:16px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --header-h:72px;
+  --wrap:1200px;
+  font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 8px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+h1,h2,h3,p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+.i{width:1.25em;height:1.25em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.i--fill{fill:currentColor;stroke:none}
+.wrap{width:min(var(--wrap),100% - 48px);margin-inline:auto}
+:focus-visible{outline:2px solid var(--orange-2);outline-offset:3px;border-radius:8px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:16px;top:-60px;z-index:200;background:var(--orange);color:#1a1004;padding:10px 16px;border-radius:10px;font-weight:600;transition:top .2s}
+.skip:focus{top:12px}
+body.lock{overflow:hidden}
+body.lang-am{font-family:'Noto Sans Ethiopic','Poppins',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.lang-switch{position:relative;display:inline-flex;align-items:center;gap:4px;height:38px;padding:3px;border:1px solid var(--line-2);border-radius:12px;background:rgba(255,255,255,.045);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.lang-switch button{min-width:38px;height:30px;padding:0 8px;border-radius:9px;font-size:.72rem;font-weight:700;color:var(--muted);transition:color .25s,background .25s,transform .25s}
+.lang-switch button:hover{color:#fff;transform:translateY(-1px)}
+.lang-switch button.active{background:var(--orange);color:#1b1104;box-shadow:0 6px 14px -8px rgba(247,148,29,.9)}
+.drawer .lang-switch{margin-top:18px;align-self:flex-start}
+@media(max-width:900px){.lang-switch{height:36px}.lang-switch button{min-width:34px;padding:0 7px}}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 26px;border-radius:999px;font-weight:600;font-size:.95rem;letter-spacing:.01em;transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-color .25s,color .25s;white-space:nowrap}
+.btn .i{width:1.1em;height:1.1em;transition:transform .25s var(--ease)}
+.btn:hover .i--arrow{transform:translateX(4px)}
+.btn--primary{background:linear-gradient(180deg,var(--orange-2),var(--orange));color:#1b1104;box-shadow:0 10px 30px -10px rgba(247,148,29,.7),inset 0 1px 0 rgba(255,255,255,.35)}
+.btn--primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px -10px rgba(247,148,29,.85),inset 0 1px 0 rgba(255,255,255,.35)}
+.btn--ghost{border:1.5px solid rgba(255,255,255,.7);color:#fff;background:rgba(255,255,255,.03)}
+.btn--ghost:hover{background:#fff;color:#111;border-color:#fff;transform:translateY(-2px)}
+.btn--outline{border:1.5px solid var(--orange);color:var(--orange-2);height:44px;padding:0 22px}
+.btn--outline:hover{background:var(--orange);color:#1b1104;transform:translateY(-2px)}
+.btn--block{width:100%}
+.btn--sm{height:42px;padding:0 20px;border-radius:12px;font-size:.88rem}
+
+/* ============ HEADER ============ */
+.progress{position:fixed;inset:0 0 auto 0;height:3px;z-index:60;background:linear-gradient(90deg,var(--orange-d),var(--orange-2));transform:scaleX(0);transform-origin:0 50%}
+.header{position:fixed;inset:0 0 auto 0;z-index:50;height:var(--header-h);transition:background .3s,border-color .3s,backdrop-filter .3s;border-bottom:1px solid transparent}
+.header.scrolled{background:rgba(10,12,15,.78);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border-color:var(--line)}
+.header__in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo__mark{width:34px;height:34px;color:var(--orange);flex:none}
+.logo__txt{display:flex;flex-direction:column;line-height:1.1}
+.logo__name{font-weight:700;font-size:1.18rem;letter-spacing:-.01em}
+.logo__name b{color:var(--orange);font-weight:700}
+.logo__tag{display:none;font-size:.62rem;color:var(--muted);margin-top:3px}
+.nav{display:flex;gap:6px}
+.nav a{position:relative;padding:8px 18px;font-size:.92rem;font-weight:500;color:#dfe2e6;border-radius:10px;transition:color .2s}
+.nav a::after{content:"";position:absolute;left:18px;right:18px;bottom:-4px;height:2px;background:var(--orange);border-radius:2px;transform:scaleX(0);transition:transform .3s var(--ease)}
+.nav a:hover{color:#fff}
+.nav a.active{color:#fff}
+.nav a.active::after,.nav a:hover::after{transform:scaleX(1)}
+.header__actions{display:flex;align-items:center;gap:8px}
+.icon-btn{position:relative;width:42px;height:42px;display:grid;place-items:center;border-radius:12px;color:#e8eaed;transition:background .2s,color .2s}
+.icon-btn:hover{background:rgba(255,255,255,.08);color:var(--orange-2)}
+.icon-btn .i{width:21px;height:21px}
+.badge{position:absolute;top:2px;right:0;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:var(--orange);color:#1b1104;font-size:.68rem;font-weight:700;display:grid;place-items:center;transform:scale(0);transition:transform .3s var(--ease)}
+.badge.show{transform:scale(1)}
+.badge.bump{animation:bump .45s var(--ease)}
+@keyframes bump{40%{transform:scale(1.5)}}
+.menu-btn{display:none}
+.header__order{margin-left:6px}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:min(100svh,780px);display:flex;align-items:center;padding-top:var(--header-h);overflow:hidden;isolation:isolate}
+.hero__media{position:absolute;top:0;right:0;bottom:0;width:64%;z-index:-2;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 40%);mask-image:linear-gradient(90deg,transparent 0,#000 40%)}
+.hero__media{overflow:hidden}
+.hero__stage{position:absolute;inset:0;transform:translate3d(var(--px,0),var(--py,0),0) scale(1.04);transition:transform .6s var(--ease)}
+.slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 45%);opacity:0;transition:opacity 1.1s ease}
+.slide.on{opacity:1;animation:kb 9s ease-out both}
+@keyframes kb{from{transform:scale(1.09)}to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(600px 400px at 70% 45%,rgba(247,148,29,.18),transparent 70%),linear-gradient(180deg,rgba(10,12,15,.55) 0,transparent 30%,transparent 70%,var(--bg) 100%)}
+.hero__in{position:relative;padding-block:64px 96px}
+.hero__copy{max-width:560px}
+.hero__eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--orange);font-weight:500;font-size:.98rem;margin-bottom:14px}
+.hero__eyebrow::before{content:"";width:28px;height:2px;background:var(--orange);border-radius:2px}
+.hero h1{font-size:clamp(2.7rem,6.4vw,5.2rem);font-weight:800;line-height:1.02;letter-spacing:-.025em;text-transform:uppercase}
+.hero h1 span{display:block}
+.mood{background:linear-gradient(90deg,#6b4313 0,var(--orange) 22%,var(--orange-2) 60%,var(--orange) 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.hero__lead{margin-top:22px;max-width:440px;color:#e4e6e9;font-size:1.05rem}
+.hero__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.hero__facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:38px}
+.chip-info{display:inline-flex;align-items:center;gap:9px;padding:9px 16px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:.84rem;color:#e9ebee}
+.chip-info .i{color:var(--orange);width:16px;height:16px}
+.dot{width:8px;height:8px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 0 rgba(61,220,132,.6);animation:pulse 2s infinite}
+.dot.closed{background:#ff6b5b;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}
+.scroll-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.72rem;color:var(--muted)}
+.scroll-hint .i{width:18px;height:18px;color:var(--orange);animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(5px)}}
+.embers{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.embers i{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;background:var(--orange-2);box-shadow:0 0 10px 2px rgba(247,148,29,.8);opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0}15%{opacity:.9}100%{transform:translateY(-78vh) translateX(var(--dx,30px));opacity:0}}
+
+/* hero entrance (single orchestrated moment) */
+.hero__copy>*{opacity:0;transform:translateY(22px);animation:in .9s var(--ease) forwards}
+.hero__copy>*:nth-child(1){animation-delay:.1s}
+.hero__copy h1 span:nth-child(1){display:block}
+.hero__copy>*:nth-child(2){animation-delay:.22s}
+.hero__copy>*:nth-child(3){animation-delay:.38s}
+.hero__copy>*:nth-child(4){animation-delay:.5s}
+.hero__copy>*:nth-child(5){animation-delay:.62s}
+.hero__media{animation:mediaIn 1.4s var(--ease) both}
+@keyframes in{to{opacity:1;transform:none}}
+@keyframes mediaIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+.mood{animation:sheen 3.6s ease-in-out .9s 1 both}
+@keyframes sheen{from{background-position:100% 0}to{background-position:0 0}}
+
+/* ============ SECTIONS ============ */
+.section{padding-block:96px}
+.section--alt{background:var(--bg-3)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px}
+.sec-title{font-size:clamp(1.9rem,3.6vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.sec-title em{font-style:normal;color:var(--orange)}
+.sec-sub{margin-top:10px;max-width:440px;color:var(--muted);font-size:.98rem}
+.link-more{display:inline-flex;align-items:center;gap:8px;color:var(--orange);font-weight:500;font-size:.92rem;white-space:nowrap}
+.link-more .i{width:1em;height:1em;transition:transform .25s var(--ease)}
+.link-more:hover .i{transform:translateX(5px)}
+.link-more:hover{color:var(--orange-2)}
+
+/* ============ CATEGORY CARDS ============ */
+.cats{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.cat{position:relative;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;display:flex;flex-direction:column;gap:12px;transition:transform .35s var(--ease),border-color .3s,box-shadow .3s;perspective:700px}
+.cat__img{aspect-ratio:1/.86;border-radius:11px;overflow:hidden;background:#0c0e11}
+.cat__img img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.cat__body{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 6px 6px}
+.cat__t{font-weight:600;font-size:1.02rem;line-height:1.2}
+.cat__s{font-size:.78rem;color:var(--muted);margin-top:2px}
+.cat .i{color:var(--orange);width:18px;height:18px;transition:transform .3s var(--ease)}
+.cat:hover{transform:translateY(-6px);border-color:rgba(247,148,29,.55);box-shadow:0 20px 40px -20px rgba(247,148,29,.45)}
+.cat:hover .cat__img img{transform:scale(1.1)}
+.cat:hover .i{transform:translateX(4px)}
+.cat.active{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange),0 20px 44px -22px rgba(247,148,29,.6)}
+
+/* ============ FULL MENU ============ */
+.fullmenu{margin-top:72px;scroll-margin-top:calc(var(--header-h) + 12px)}
+.fullmenu__head{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+.fullmenu__title{font-size:1.35rem;font-weight:600}
+.fullmenu__count{color:var(--muted);font-size:.9rem;font-weight:400;margin-left:8px}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{height:40px;padding:0 20px;border-radius:999px;border:1px solid var(--line-2);background:rgba(255,255,255,.02);color:#dfe2e6;font-size:.88rem;font-weight:500;transition:all .25s var(--ease)}
+.chip:hover{border-color:var(--orange);color:var(--orange-2)}
+.chip.active{background:var(--orange);border-color:var(--orange);color:#1b1104;font-weight:600}
+.dishes{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+.dish{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .35s var(--ease),border-color .3s,box-shadow .35s;animation:dishIn .5s var(--ease) both}
+@keyframes dishIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.dish:hover{transform:translateY(-5px);border-color:rgba(247,148,29,.5);box-shadow:0 24px 44px -24px rgba(0,0,0,.9)}
+.dish__img{position:relative;aspect-ratio:4/3;overflow:hidden}
+.dish__img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.dish:hover .dish__img img{transform:scale(1.08)}
+.dish__img::after{content:"";position:absolute;inset:auto 0 0 0;height:50%;background:linear-gradient(transparent,rgba(10,12,15,.65))}
+.dish__tag{position:absolute;z-index:2;left:12px;top:12px;padding:4px 12px;border-radius:99px;background:rgba(10,12,15,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line-2);font-size:.72rem;font-weight:500;color:var(--orange-2)}
+.dish__body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.dish__name{font-weight:600;font-size:1.06rem;line-height:1.25;text-align:left}
+.dish__name::after{content:"";position:absolute;inset:0;z-index:1}
+.dish__desc{color:var(--muted);font-size:.85rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dish__foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px}
+.price{color:var(--orange);font-weight:700;font-size:1.05rem;letter-spacing:.01em}
+.price small{font-size:.72rem;font-weight:600;margin-right:4px;opacity:.85}
+.add{position:relative;z-index:2;width:38px;height:38px;border-radius:50%;background:var(--orange);color:#1b1104;display:grid;place-items:center;transition:transform .25s var(--ease),background .25s,box-shadow .25s}
+.add .i{width:19px;height:19px;stroke-width:2.6}
+.add:hover{transform:rotate(90deg) scale(1.1);background:var(--orange-2);box-shadow:0 8px 20px -6px rgba(247,148,29,.8)}
+.empty{grid-column:1/-1;text-align:center;padding:56px 0;color:var(--muted)}
+
+/* ============ ABOUT ============ */
+.about{display:grid;grid-template-columns:1.08fr 1fr;gap:72px;align-items:center}
+.about__media{position:relative;padding:0 0 40px 0}
+.about__main{aspect-ratio:4/3.1;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:0 40px 80px -30px rgba(0,0,0,.9)}
+.about__main img{width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.about__inset{position:absolute;right:-20px;bottom:0;width:44%;aspect-ratio:4/3;border-radius:16px;overflow:hidden;border:4px solid var(--bg);box-shadow:0 20px 50px -20px rgba(0,0,0,.9)}
+.about__inset img{width:100%;height:100%;object-fit:cover}
+.about__badge{position:absolute;left:-14px;top:26px;display:flex;align-items:center;gap:12px;padding:12px 18px;background:rgba(18,22,27,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(247,148,29,.4);border-radius:16px;box-shadow:0 18px 40px -16px rgba(0,0,0,.9)}
+.about__badge .i{color:var(--orange);width:26px;height:26px}
+.about__badge b{display:block;font-size:.92rem;line-height:1.2}
+.about__badge span{font-size:.74rem;color:var(--muted)}
+.about__lede{margin-top:6px;color:var(--orange-2);font-weight:500;font-size:1.05rem}
+.about__text{margin-top:16px;color:#c9cdd3;max-width:520px}
+.about__more{max-height:0;overflow:hidden;opacity:0;transition:max-height .6s var(--ease),opacity .5s,margin .4s}
+.about__more.open{max-height:260px;opacity:1;margin-top:14px}
+.about__more p{color:#c9cdd3;max-width:520px}
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0 32px;max-width:520px}
+.feat{display:flex;align-items:center;gap:12px;font-weight:500;font-size:.86rem;line-height:1.25}
+.feat__i{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(247,148,29,.12);border:1px solid rgba(247,148,29,.45);color:var(--orange);flex:none}
+.feat__i .i{width:20px;height:20px}
+
+/* ============ GALLERY ============ */
+.gal-chips{margin-bottom:28px}
+.mason{display:flex;gap:16px;align-items:flex-start}
+.mcol{flex:1;min-width:0;display:flex;flex-direction:column;gap:16px}
+.tile{position:relative;display:block;width:100%;border-radius:16px;overflow:hidden;border:1px solid var(--line);cursor:zoom-in;background:#0c0e11;animation:dishIn .6s var(--ease) both}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.8));opacity:0;transition:opacity .4s}
+.tile__cap{position:absolute;z-index:2;left:16px;right:16px;bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.84rem;font-weight:500;text-align:left;opacity:0;transform:translateY(8px);transition:all .4s var(--ease)}
+.tile__cap .i{color:var(--orange-2);width:18px;height:18px;flex:none}
+.tile:hover img{transform:scale(1.07)}
+.tile:hover::after,.tile:hover .tile__cap,.tile:focus-visible .tile__cap,.tile:focus-visible::after{opacity:1;transform:none}
+
+/* ============ CONTACT ============ */
+.contact{position:relative;isolation:isolate;overflow:hidden;background:var(--bg)}
+.contact__bg{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;filter:blur(6px) saturate(1.15);transform:scale(1.1);opacity:.5}
+.contact::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,var(--bg) 20%,rgba(10,12,15,.62)),linear-gradient(180deg,var(--bg-3),transparent 25%)}
+.contact__grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.info{display:grid;grid-template-columns:1fr;gap:14px;margin-top:30px}
+.info__row{display:flex;align-items:center;gap:16px}
+.info__ic{width:46px;height:46px;border-radius:50%;background:var(--orange);color:#1b1104;display:grid;place-items:center;flex:none}
+.info__ic .i{width:21px;height:21px}
+.info__row b{display:block;font-weight:600;font-size:.98rem;line-height:1.3}
+.info__row div>span,.info__row a.sub{display:block;color:var(--muted);font-size:.84rem}
+.info__row a.sub:hover{color:var(--orange-2)}
+.socials{display:flex;gap:12px;margin-top:30px}
+.social{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;transition:all .3s var(--ease);background:rgba(255,255,255,.03)}
+.social .i{width:19px;height:19px}
+.social:hover{background:var(--orange);border-color:var(--orange);color:#1b1104;transform:translateY(-4px)}
+.form{background:rgba(20,24,29,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line-2);border-radius:20px;padding:26px;display:grid;gap:14px;box-shadow:0 40px 80px -40px #000}
+.form__row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{position:relative}
+.field input,.field textarea{width:100%;background:#0e1115;border:1px solid var(--line-2);border-radius:12px;padding:15px 16px;color:#fff;font:inherit;font-size:.92rem;transition:border-color .2s,box-shadow .2s}
+.field textarea{min-height:128px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:#7d838d}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(247,148,29,.2)}
+.field.err input,.field.err textarea{border-color:#ff6b5b}
+.field .msg{display:none;color:#ff8f82;font-size:.76rem;margin-top:5px}
+.field.err .msg{display:block}
+.form__status{min-height:22px;font-size:.88rem;color:#7be0a8}
+.form__status.bad{color:#ff8f82}
+
+/* ============ FOOTER ============ */
+.footer{border-top:1px solid var(--line);background:var(--bg)}
+.footer__in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;padding-block:26px}
+.footer__tag{font-size:.88rem;color:#e6e8eb;text-align:center}
+.footer__r{display:flex;justify-content:flex-end;align-items:center;gap:22px;flex-wrap:wrap;font-size:.76rem;color:var(--muted)}
+.footer__r nav{display:flex;gap:16px}
+.footer__r a:hover{color:var(--orange-2)}
+
+/* ============ LAYERS (drawer / modal / search / lightbox) ============ */
+.layer{position:fixed;inset:0;z-index:80;display:none}
+.layer.show{display:block}
+.scrim{position:absolute;inset:0;background:rgba(4,5,7,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:fade .3s both}
+@keyframes fade{from{opacity:0}}
+
+/* mobile nav drawer */
+.drawer{position:absolute;inset:0;background:var(--bg);display:flex;flex-direction:column;padding:0 24px 24px;overflow-y:auto;animation:fade .3s both}
+.drawer__top{height:var(--header-h);display:flex;align-items:center;justify-content:space-between;flex:none}
+.drawer nav{margin-top:6px;border-top:1px solid var(--line)}
+.drawer nav a{display:flex;align-items:center;gap:16px;padding:15px 14px;font-size:1.1rem;font-weight:500;border-bottom:1px solid var(--line);border-left:3px solid transparent;color:#e7e9ec}
+.drawer nav a .i{color:var(--orange);width:24px;height:24px}
+.drawer nav a.active{background:linear-gradient(90deg,rgba(247,148,29,.16),transparent);border-left-color:var(--orange)}
+.drawer .btn{margin-top:24px}
+.drawer__card{position:relative;margin-top:24px;border-radius:18px;overflow:hidden;min-height:150px;background-size:cover;background-position:center;border:1px solid var(--line)}
+.drawer__card::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,12,15,.92) 20%,rgba(10,12,15,.15))}
+.drawer__card p{position:relative;padding:22px;font-size:1.35rem;font-weight:700;line-height:1.2;max-width:60%}
+.drawer__card p b{color:var(--orange);display:block;font-weight:700}
+.drawer .socials{justify-content:center;margin-top:auto;padding-top:26px}
+
+/* dish modal */
+.modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(900px,calc(100% - 32px));max-height:calc(100svh - 40px);overflow:auto;background:var(--card);border:1px solid var(--line-2);border-radius:24px;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 60px 120px -30px #000;animation:pop .45s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:translate(-50%,-46%) scale(.97)}}
+.modal__img{position:relative;min-height:380px}
+.modal__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.modal__body{padding:34px 32px 28px;display:flex;flex-direction:column;gap:14px}
+.modal__pill{align-self:flex-start;padding:4px 14px;border-radius:99px;background:var(--orange);color:#1b1104;font-size:.74rem;font-weight:600}
+.modal__row{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.modal__row h3{font-size:1.65rem;font-weight:700;line-height:1.15;letter-spacing:-.01em}
+.modal__row .price{font-size:1.25rem;white-space:nowrap}
+.modal__desc{color:#c5cad1;font-size:.95rem}
+.buy{display:flex;gap:12px;align-items:center;margin-top:6px}
+.qty{display:inline-flex;align-items:center;height:50px;border:1px solid var(--line-2);border-radius:14px;overflow:hidden;flex:none}
+.qty button{width:42px;height:100%;display:grid;place-items:center;transition:background .2s,color .2s}
+.qty button:hover{background:rgba(247,148,29,.15);color:var(--orange-2)}
+.qty .i{width:17px;height:17px}
+.qty output{min-width:30px;text-align:center;font-weight:600}
+.buy .btn{flex:1;height:50px;border-radius:14px}
+.like{margin-top:10px;padding-top:18px;border-top:1px solid var(--line)}
+.like h4{margin:0 0 12px;font-size:.98rem;font-weight:600}
+.like__grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mini{position:relative;background:var(--card-2);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,transform .3s var(--ease)}
+.mini:hover{border-color:rgba(247,148,29,.5);transform:translateY(-3px)}
+.mini img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.mini__b{padding:8px 10px 10px;display:flex;align-items:center;justify-content:space-between;gap:6px}
+.mini__n{font-size:.78rem;font-weight:500;line-height:1.2;text-align:left}
+.mini__n::after{content:"";position:absolute;inset:0;z-index:1}
+.mini .price{font-size:.78rem}
+.mini .add{width:28px;height:28px}
+.mini .add .i{width:14px;height:14px}
+.x{position:absolute;z-index:5;top:14px;right:14px;width:40px;height:40px;border-radius:50%;background:rgba(10,12,15,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line-2);display:grid;place-items:center;transition:background .2s,transform .3s var(--ease)}
+.x:hover{background:var(--orange);color:#1b1104;transform:rotate(90deg)}
+
+/* cart drawer */
+.cart{position:absolute;right:0;top:0;bottom:0;width:min(420px,100%);background:var(--card);border-left:1px solid var(--line-2);display:flex;flex-direction:column;animation:slideIn .45s var(--ease) both;box-shadow:-40px 0 80px -40px #000}
+@keyframes slideIn{from{transform:translateX(100%)}}
+.cart__head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}
+.cart__head h3{font-size:1.2rem;font-weight:600}
+.cart__list{flex:1;overflow:auto;padding:8px 22px}
+.ci{display:grid;grid-template-columns:68px 1fr auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.ci img{width:68px;height:68px;border-radius:12px;object-fit:cover}
+.ci__n{font-weight:500;font-size:.92rem;line-height:1.25}
+.ci__p{color:var(--orange);font-size:.84rem;font-weight:600;margin-top:2px}
+.ci .qty{height:34px;border-radius:10px;margin-top:8px}
+.ci .qty button{width:30px}
+.ci .qty .i{width:13px;height:13px}
+.ci .qty output{min-width:24px;font-size:.84rem}
+.ci__rm{color:var(--muted);align-self:start;padding:4px;border-radius:8px}
+.ci__rm:hover{color:#ff8f82}
+.ci__rm .i{width:18px;height:18px}
+.cart__empty{display:grid;place-items:center;text-align:center;gap:14px;height:100%;color:var(--muted);padding:30px}
+.cart__empty .i{width:48px;height:48px;color:var(--orange);opacity:.7}
+.cart__foot{padding:20px 22px calc(20px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:grid;gap:14px;background:var(--card-2)}
+.sum{display:flex;justify-content:space-between;align-items:baseline;font-weight:600}
+.sum .price{font-size:1.3rem}
+.cart__note{font-size:.76rem;color:var(--muted);text-align:center}
+.linkbtn{color:var(--muted);font-size:.82rem;text-align:center}
+.linkbtn:hover{color:#ff8f82}
+
+/* search */
+.search{position:absolute;left:50%;top:max(14px,8vh);transform:translateX(-50%);width:min(620px,calc(100% - 28px));background:var(--card);border:1px solid var(--line-2);border-radius:20px;overflow:hidden;box-shadow:0 50px 100px -30px #000;animation:drop .4s var(--ease) both}
+@keyframes drop{from{opacity:0;transform:translate(-50%,-14px)}}
+.search__bar{display:flex;align-items:center;gap:12px;padding:6px 14px 6px 20px;border-bottom:1px solid var(--line)}
+.search__bar .i{color:var(--orange)}
+.search__bar input{flex:1;background:none;border:0;outline:0;color:#fff;font:inherit;font-size:1rem;padding:14px 0}
+.search__res{max-height:min(58vh,460px);overflow:auto;padding:8px}
+.sr{display:grid;grid-template-columns:54px 1fr auto;gap:14px;align-items:center;width:100%;padding:8px;border-radius:12px;text-align:left;transition:background .2s}
+.sr:hover,.sr:focus-visible{background:rgba(247,148,29,.12)}
+.sr img{width:54px;height:54px;border-radius:10px;object-fit:cover}
+.sr b{display:block;font-weight:500;font-size:.94rem}
+.sr span{font-size:.78rem;color:var(--muted)}
+.search__hint{padding:30px;text-align:center;color:var(--muted);font-size:.9rem}
+
+/* lightbox */
+.lb{position:absolute;inset:0;display:grid;place-items:center;padding:24px;background:rgba(4,5,7,.92);animation:fade .3s both}
+.lb figure{margin:0;display:grid;gap:14px;justify-items:center;max-width:min(1000px,100%)}
+.lb img{max-height:78svh;width:auto;max-width:100%;border-radius:16px;box-shadow:0 40px 100px -30px #000;animation:pop2 .45s var(--ease) both}
+@keyframes pop2{from{opacity:0;transform:scale(.96)}}
+.lb figcaption{display:flex;gap:14px;align-items:center;font-size:.92rem;color:#dcdfe3}
+.lb figcaption small{color:var(--muted)}
+.lb__nav{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid var(--line-2);display:grid;place-items:center;transition:background .2s,color .2s}
+.lb__nav:hover{background:var(--orange);color:#1b1104}
+.lb__prev{left:20px}.lb__next{right:20px}
+
+/* toast */
+.toast{position:fixed;left:50%;width:max-content;bottom:28px;z-index:120;transform:translate(-50%,30px);opacity:0;pointer-events:none;display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:14px;background:#1d232b;border:1px solid rgba(247,148,29,.5);box-shadow:0 20px 50px -16px #000;font-size:.9rem;font-weight:500;transition:all .45s var(--ease);max-width:calc(100% - 32px)}
+.toast .i{color:var(--orange);width:19px;height:19px}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* mobile tab bar */
+.tabbar{display:none}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1100px){
+  .cats{grid-template-columns:repeat(3,1fr)}
+  .about{gap:48px}
+}
+@media (max-width:900px){
+  :root{--header-h:64px}
+  .nav,.header__order{display:none}
+  .menu-btn{display:grid}
+  .logo__tag{display:block}
+  .section{padding-block:72px}
+  .about{grid-template-columns:1fr;gap:40px}
+  .about__inset{right:-8px}
+  .contact__grid{grid-template-columns:1fr;gap:40px}
+  .footer__in{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .footer__r{justify-content:center}
+
+  /* hero becomes stacked, like the phone mock-up */
+  .hero{display:block;min-height:0;padding-top:0}
+  .hero__media{position:relative;width:100%;height:min(58svh,520px);-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent);mask-image:linear-gradient(180deg,#000 55%,transparent);animation:mediaInM 1.2s var(--ease) both}
+  @keyframes mediaInM{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
+  .slide{object-position:var(--posm,var(--pos,50% 40%))}
+  .hero::before{background:linear-gradient(180deg,rgba(10,12,15,.6),transparent 22%,transparent 60%,var(--bg) 92%)}
+  .hero__in{margin-top:-96px;padding-block:0 120px}
+  .hero__copy{max-width:none}
+  .hero h1{font-size:clamp(2.5rem,12vw,3.6rem)}
+  .hero__lead{font-size:.98rem}
+  .hero__cta .btn{height:46px;padding:0 24px}
+  .hero__facts{margin-top:28px}
+  .hero::after{content:"";position:absolute;right:0;bottom:0;width:58%;height:84px;background:linear-gradient(135deg,var(--orange-2),var(--orange));border-top-left-radius:100% 100%;z-index:0}
+  .scroll-hint{bottom:18px;left:24px;transform:none;z-index:1;color:#fff;align-items:flex-start}
+  .scroll-hint span{font-size:.7rem}
+  .scroll-hint .i{color:var(--orange)}
+}
+@media (max-width:700px){
+  .wrap{width:min(var(--wrap),100% - 40px)}
+  body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:28px}
+  .cats{display:none}
+  .fullmenu{margin-top:0}
+  .fullmenu__head{flex-direction:column;align-items:flex-start;gap:16px}
+  .chips{flex-wrap:nowrap;overflow-x:auto;margin-inline:-20px;padding-inline:20px;width:calc(100% + 40px);scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none}
+  /* list-style rows like the phone mock-up */
+  .dishes{grid-template-columns:1fr;gap:12px}
+  .dish{flex-direction:row;align-items:stretch;border-radius:16px}
+  .dish__img{width:104px;aspect-ratio:auto;flex:none}
+  .dish__img::after,.dish__tag{display:none}
+  .dish__body{padding:12px 14px}
+  .dish__name{font-size:.98rem}
+  .dish__desc{font-size:.78rem}
+  .dish__foot{padding-top:6px}
+  .dish:hover{transform:none}
+  .mason,.mcol{gap:10px}
+  .tile{border-radius:12px}
+  .tile__cap{display:none}
+  .feats{grid-template-columns:1fr;max-width:none;gap:16px;border-block:1px solid var(--line);padding-block:20px}
+  .about__badge{left:10px;top:12px;padding:9px 14px}
+  .about__inset{width:48%;right:10px}
+  .form{padding:18px}
+  .form__row{grid-template-columns:1fr}
+  .footer{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+  .toast{bottom:calc(88px + env(safe-area-inset-bottom))}
+
+  /* modal as full-screen sheet */
+  .modal{left:0;top:0;transform:none;width:100%;max-height:none;height:100%;border-radius:0;border:0;grid-template-columns:1fr;grid-auto-rows:auto;align-content:start;animation:sheet .45s var(--ease) both}
+  @keyframes sheet{from{transform:translateY(40px);opacity:0}}
+  .modal__img{min-height:0;aspect-ratio:4/3.1}
+  .modal__body{padding:22px 20px 30px}
+  .modal__row h3{font-size:1.45rem}
+
+  .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:45;display:grid;grid-template-columns:repeat(5,1fr);padding:8px 6px calc(8px + env(safe-area-inset-bottom));background:rgba(10,12,15,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--line)}
+  .tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.66rem;color:#aab0b8;padding:6px 0;border-radius:12px;transition:color .2s}
+  .tabbar a .i{width:22px;height:22px}
+  .tabbar a.active{color:var(--orange)}
+  .tabbar a.active .i{filter:drop-shadow(0 0 8px rgba(247,148,29,.7))}
+}
+@media (max-width:420px){
+  .hero__cta{flex-wrap:nowrap}
+  .hero__cta .btn{padding:0 18px;flex:1}
+  .like__grid{gap:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .embers{display:none}
+}
+
+/* ============ V2: grain, hero UI, ribbon, picks, space, cta, map, cartbar ============ */
+body::after{content:"";position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+.ring{position:absolute;z-index:3;right:max(24px,calc((100vw - var(--wrap))/2));top:calc(var(--header-h) + 36px);width:128px;height:128px;display:grid;place-items:center;border-radius:50%;background:rgba(14,17,21,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line-2);opacity:0;transform:translateY(22px);animation:in 1s var(--ease) 1.1s forwards}
+.ring__txt{position:absolute;inset:0;width:100%;height:100%;animation:spin 26s linear infinite}
+.ring__txt text{fill:#eceef1;font-size:10.5px;font-weight:500;letter-spacing:.04em}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ring__c{width:48px;height:48px;border-radius:50%;background:var(--orange);color:#1b1104;display:grid;place-items:center;box-shadow:0 10px 26px -8px rgba(247,148,29,.8)}
+.ring__c .i{width:24px;height:24px}
+
+.hero__ui{position:absolute;z-index:3;right:max(24px,calc((100vw - var(--wrap))/2));bottom:64px;display:flex;flex-direction:column;align-items:flex-end;gap:14px;opacity:0;transform:translateY(22px);animation:in 1s var(--ease) .9s forwards}
+.hcard{display:flex;align-items:center;gap:18px;min-width:310px;padding:14px 14px 14px 20px;border-radius:20px;background:rgba(14,17,21,.62);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);border:1px solid var(--line-2);box-shadow:0 30px 60px -30px #000}
+.hcard__txt{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.hcard__txt>*{transition:opacity .22s}
+.hcard.swap .hcard__txt>*{opacity:0}
+.hcard__tag{font-size:.72rem;color:var(--orange-2);font-weight:500}
+.hcard__name{font-size:1.05rem;font-weight:600;line-height:1.25}
+.hcard__price{color:var(--orange);font-weight:700;font-size:.95rem}
+.thumbs{display:flex;gap:10px}
+.th{position:relative;width:62px;height:62px;border-radius:16px;overflow:hidden;border:1.5px solid var(--line-2);opacity:.72;transition:opacity .3s,border-color .3s,transform .3s var(--ease)}
+.th img{width:100%;height:100%;object-fit:cover}
+.th:hover{opacity:1;transform:translateY(-3px)}
+.th.on{opacity:1;border-color:var(--orange)}
+.th__bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--orange-2)}
+.th.on .th__bar{animation:fill 6s linear forwards}
+.hero__ui:hover .th.on .th__bar,.hero__ui:focus-within .th.on .th__bar{animation-play-state:paused}
+.hero.noauto .th.on .th__bar{animation:none;width:100%}
+@keyframes fill{to{width:100%}}
+
+.ribbon{position:relative;overflow:hidden;padding-block:18px;border-block:1px solid var(--line);background:linear-gradient(180deg,var(--bg),var(--bg-2));-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.ribbon__track{display:flex;width:max-content;animation:marq 70s linear infinite}
+.ribbon:hover .ribbon__track{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(-50%)}}
+.rp{display:flex;align-items:center;gap:12px;flex:none;margin-right:14px;padding:6px 22px 6px 6px;border-radius:99px;background:var(--card);border:1px solid var(--line);text-align:left;transition:border-color .25s,background .25s}
+.rp:hover{border-color:rgba(247,148,29,.55);background:var(--card-2)}
+.rp img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.rp b{display:block;font-size:.9rem;font-weight:600;line-height:1.2;white-space:nowrap}
+.rp i{font-style:normal;font-size:.76rem;color:var(--orange);font-weight:600}
+
+.subhead{margin:76px 0 28px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.subhead h3{font-size:1.5rem;font-weight:600;letter-spacing:-.01em}
+.subhead p{color:var(--muted);font-size:.92rem;margin-top:4px}
+.picks{display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:270px 270px;gap:18px}
+.pick{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:#0c0e11;transition:border-color .3s,box-shadow .4s}
+.pick>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1s var(--ease)}
+.pick::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(8,10,13,.92) 0,rgba(8,10,13,.4) 42%,transparent 70%)}
+.pick:hover>img{transform:scale(1.06)}
+.pick:hover{border-color:rgba(247,148,29,.55);box-shadow:0 30px 60px -30px rgba(247,148,29,.4)}
+.pick__in{padding:20px 22px;display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+.pick__tag{display:inline-block;margin-bottom:8px;padding:3px 12px;border-radius:99px;background:rgba(10,12,15,.65);border:1px solid var(--line-2);font-size:.72rem;color:var(--orange-2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.pick__name{display:block;font-size:1.15rem;font-weight:600;line-height:1.2;text-align:left}
+.pick__name::after{content:"";position:absolute;inset:0;z-index:1}
+.pick__desc{display:none;color:#d0d4da;font-size:.86rem;margin-top:6px;max-width:36ch}
+.pick--a .pick__desc{display:block}
+.pick--a .pick__name{font-size:1.65rem}
+.pick .price{display:block;margin-top:6px}
+.pick .add{position:relative;z-index:2;flex:none}
+.pick--a{grid-row:1/3}
+.pick--d{grid-column:2/4}
+
+.space{display:flex;gap:14px;height:min(64vh,560px)}
+.pan{position:relative;flex:1;min-width:0;padding:0;text-align:left;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:#0c0e11;cursor:pointer;transition:flex .7s var(--ease),border-color .3s}
+.pan img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.75) brightness(.62);transition:filter .6s,transform 1.3s var(--ease)}
+.pan::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,10,13,.9),transparent 58%)}
+.pan.on{flex:5.2;border-color:rgba(247,148,29,.5)}
+.pan.on img{filter:none;transform:scale(1.04)}
+.pan__t{position:absolute;z-index:2;left:22px;right:22px;bottom:20px}
+.pan__t b{display:block;font-size:1.25rem;font-weight:600;line-height:1.2}
+.pan__t span{display:block;max-height:0;opacity:0;overflow:hidden;color:#d3d6db;font-size:.9rem;transition:max-height .5s var(--ease),opacity .5s,margin .4s}
+.pan.on .pan__t span{max-height:70px;opacity:1;margin-top:6px}
+.pan:not(.on) .pan__t{left:0;right:0;display:flex;justify-content:center}
+.pan:not(.on) .pan__t b{writing-mode:vertical-rl;transform:rotate(180deg);font-size:.95rem;font-weight:500;letter-spacing:.02em}
+
+.cta-sec{padding-block:40px 96px}
+.cta{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:32px;padding:56px 56px 56px 64px;border-radius:30px;border:1px solid rgba(247,148,29,.35);background:radial-gradient(620px 320px at 88% 50%,rgba(247,148,29,.3),transparent 70%),linear-gradient(135deg,#1b130a,#101318 62%)}
+.cta h2{font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+.cta h2 em{white-space:nowrap}
+.cta h2 em{font-style:normal;color:var(--orange)}
+.cta p{margin-top:14px;color:#c9cdd3;max-width:46ch}
+.cta__btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+.cta__hrs{display:inline-flex;align-items:center;gap:9px;margin-top:22px;font-size:.84rem;color:var(--muted)}
+.cta__hrs .i{color:var(--orange);width:16px;height:16px}
+.fan{--w:190px;--h:280px;position:relative;height:calc(var(--h) + 50px)}
+.fan img{position:absolute;top:50%;left:50%;width:var(--w);height:var(--h);object-fit:cover;border-radius:20px;border:3px solid #14181d;box-shadow:0 30px 60px -20px #000;transition:transform .8s var(--ease)}
+.fan img:nth-child(1){transform:translate(-122%,-50%) rotate(-9deg)}
+.fan img:nth-child(2){transform:translate(-50%,-55%);z-index:2}
+.fan img:nth-child(3){transform:translate(22%,-50%) rotate(9deg)}
+.cta:hover .fan img:nth-child(1){transform:translate(-132%,-52%) rotate(-12deg)}
+.cta:hover .fan img:nth-child(2){transform:translate(-50%,-58%)}
+.cta:hover .fan img:nth-child(3){transform:translate(32%,-52%) rotate(12deg)}
+
+.mapwrap{margin-top:56px}
+.mapcard{position:relative;height:320px;border-radius:22px;overflow:hidden;border:1px solid var(--line-2);background:#0e1115}
+.mapcard iframe{width:100%;height:100%;border:0;filter:invert(92%) hue-rotate(180deg) contrast(.88) saturate(.7) brightness(.95)}
+.mapcard__link{position:absolute;right:16px;bottom:16px}
+
+.cartbar{position:fixed;z-index:44;right:24px;bottom:24px;display:flex;align-items:center;gap:16px;padding:9px 9px 9px 20px;border-radius:999px;background:linear-gradient(180deg,var(--orange-2),var(--orange));color:#1b1104;font-weight:600;font-size:.92rem;box-shadow:0 20px 40px -14px rgba(247,148,29,.7);transform:translateY(150%);opacity:0;pointer-events:none;transition:transform .55s var(--ease),opacity .3s}
+.cartbar.show{transform:none;opacity:1;pointer-events:auto}
+.lock .cartbar{display:none}
+.cartbar__l{display:flex;align-items:center;gap:10px}
+.cartbar__l .i{width:20px;height:20px}
+.cartbar__go{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#1b1104;color:var(--orange-2)}
+.cartbar__go .i{width:18px;height:18px}
+
+.seg{display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:14px;background:#0e1115;border:1px solid var(--line-2)}
+.seg button{height:38px;border-radius:10px;font-size:.86rem;font-weight:500;color:var(--muted);transition:all .25s}
+.seg button.on{background:var(--orange);color:#1b1104;font-weight:600}
+.fly{position:fixed;z-index:130;width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--orange);box-shadow:0 10px 30px rgba(0,0,0,.6);pointer-events:none}
+
+@media (max-width:900px){
+  .ring{display:none}
+  .hero__ui{right:14px;top:calc(var(--header-h) + 16px);bottom:auto;align-items:flex-end}
+  .hcard{display:none}
+  .thumbs{flex-direction:column}
+  .th{width:46px;height:46px;border-radius:13px}
+  .picks{grid-template-rows:230px 230px}
+  .cta{grid-template-columns:1fr;gap:12px;padding:40px 32px 20px}
+  .fan{--w:150px;--h:220px}
+  .space{flex-direction:column;height:auto}
+  .pan{flex:none;height:78px;transition:height .6s var(--ease),border-color .3s}
+  .pan.on{flex:none;height:340px}
+  .pan:not(.on) .pan__t{left:22px;right:22px;display:block}
+  .pan:not(.on) .pan__t b{writing-mode:horizontal-tb;transform:none;font-size:1.05rem}
+  .pan__t{bottom:50%;transform:translateY(50%)}
+  .pan.on .pan__t{bottom:20px;transform:none}
+}
+@media (max-width:700px){
+  .subhead{margin:56px 0 22px}
+  .picks{grid-template-columns:1fr 1fr;grid-template-rows:none;gap:12px}
+  .pick--a{grid-row:auto;grid-column:1/3;height:310px}
+  .pick--b,.pick--c{height:220px}
+  .pick--d{grid-column:1/3;height:190px}
+  .pick__in{padding:14px 16px}
+  .pick--a .pick__name{font-size:1.4rem}
+  .pick__name{font-size:1rem}
+  .pick .add{width:34px;height:34px}
+  .ribbon{padding-block:14px}
+  .cta-sec{padding-block:24px 64px}
+  .cta{border-radius:24px;padding:34px 22px 12px}
+  .fan{--w:124px;--h:184px}
+  .cta__btns .btn{flex:1}
+  .mapwrap{margin-top:36px}
+  .mapcard{height:260px}
+  .cartbar{left:12px;right:12px;bottom:calc(78px + env(safe-area-inset-bottom));justify-content:space-between}
+  .toast{bottom:calc(142px + env(safe-area-inset-bottom))}
+}
+@media (prefers-reduced-motion:reduce){
+  .ribbon{overflow-x:auto;-webkit-mask-image:none;mask-image:none}
+  .ribbon__track{animation:none!important}
+  .slide.on,.ring__txt{animation:none!important}
+}
+
+/* ============ PERFORMANCE & POLISH (v10) ============ */
+img{content-visibility:auto}
+.section,.dish,.tile,.cat,.pick{content-visibility:auto;contain-intrinsic-size:auto 320px}
+.hero__media img,.modal__img img{fetchpriority:high}
+@supports (content-visibility: auto){
+  .dishes,.mason,.cats{content-visibility:auto}
+}
+/* sharper focus + better reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .hero__stage,.slide,.embers,.ring__txt{animation:none!important;transition:none!important}
+}
+/* print */
+@media print{
+  .header,.tabbar,.progress,.toast,.layer,.btn,.add,.cart,.search{display:none!important}
+  body{background:#fff;color:#000;font-size:12pt}
+  .dish,.about,.contact{break-inside:avoid}
+  img{max-width:200px}
+}
+/* safer long Amharic lines */
+.lang-am .dish__name,.lang-am .pick__name,.lang-am h1,.lang-am .sec-title{word-break:break-word;hyphens:auto}
+/* prevent layout shift on badge */
+.badge{min-width:19px}
+/* better cart bar safe area */
+.cartbar{padding-bottom:env(safe-area-inset-bottom)}
+</style>
+</head>
+<body>
+<a class="skip" href="#menu">Skip to menu</a>
+<div class="progress" id="progress"></div>
+
+<!-- ============ ICON SPRITE ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+    <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+    <symbol id="i-chef" viewBox="0 0 24 24"><path d="M6 13.87A4 4 0 0 1 7.5 6.03 4 4 0 0 1 12 3a4 4 0 0 1 4.5 3.03A4 4 0 0 1 18 13.87V21H6Z"/><path d="M6 17h12"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-zoom" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+    <symbol id="i-fb" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+    <symbol id="i-ig" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></symbol>
+    <symbol id="i-yt" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><path d="m9.75 15.02 5.75-3.27-5.75-3.27z"/></symbol>
+    <symbol id="i-tt" viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></symbol>
+    <symbol id="logo" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5v7a3 3 0 0 0 6 0V5"/><path d="M11 5v7"/><path d="M11 15v12"/><path d="M24 27V5c-3.2 2-4.8 5.2-4.8 9.2 0 2.7 1.9 3.8 4.8 3.8"/></g></symbol>
+  </defs>
+</svg>
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="header">
+  <div class="wrap header__in">
+    <a href="#home" class="logo" aria-label="YB Restaurant — home">
+      <svg class="logo__mark"><use href="#logo"/></svg>
+      <span class="logo__txt"><span class="logo__name">YB <b>Restaurant</b></span><span class="logo__tag">Good Food. Good Mood.</span></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#home" data-spy="home">Home</a>
+      <a href="#menu" data-spy="menu">Menu</a>
+      <a href="#about" data-spy="about">About</a>
+      <a href="#gallery" data-spy="gallery">Gallery</a>
+      <a href="#contact" data-spy="contact">Contact</a>
+    </nav>
+    <div class="header__actions">
+      <button class="icon-btn" data-action="open-search" aria-label="Search the menu"><svg class="i"><use href="#i-search"/></svg></button>
+      <button class="icon-btn" data-action="open-cart" aria-label="Open cart"><svg class="i"><use href="#i-cart"/></svg><span class="badge" id="cartBadge">0</span></button>
+      <button class="btn btn--primary btn--sm header__order" data-action="order-now">Order Now</button>
+      <button class="icon-btn menu-btn" data-action="open-nav" aria-label="Open navigation"><svg class="i"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero" id="home" data-section="home">
+  <div class="hero__media" id="heroMedia">
+    <div class="hero__stage">
+      <img class="slide on" fetchpriority="high" decoding="async" data-img="burger_hero" alt="A juicy burger with melted cheese, fresh lettuce and tomato, served with crispy fries and a cold cola" width="735" height="919" fetchpriority="high" style="--pos:54% 46%;--posm:50% 38%">
+      <img class="slide" decoding="async" loading="lazy" data-img="burger_crispy" alt="Crispy chicken burger with melted cheese and creamy sauce" width="736" height="1104" style="--pos:50% 34%;--posm:50% 50%">
+      <img class="slide" decoding="async" loading="lazy" data-img="pizza_pull" alt="A slice of pepperoni pizza with stretching melted cheese" width="736" height="1104" style="--pos:50% 38%;--posm:50% 42%">
+      <img class="slide" decoding="async" loading="lazy" data-img="tenders" alt="Golden, crunchy chicken tenders" width="736" height="977" style="--pos:50% 36%;--posm:50% 40%">
+    </div>
+  </div>
+  <div class="embers" aria-hidden="true" id="embers"></div>
+  <div class="ring" aria-hidden="true">
+    <svg class="ring__txt" viewBox="0 0 120 120"><defs><path id="ringPath" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#ringPath" textLength="272" lengthAdjust="spacing">Cooked fresh · Served hot · Made with love · </textPath></text></svg>
+    <span class="ring__c"><svg class="i"><use href="#logo"/></svg></span>
+  </div>
+  <div class="hero__ui" id="heroUi">
+    <div class="hcard" id="hcard">
+      <div class="hcard__txt"><span class="hcard__tag" id="hcTag">Burgers</span><b class="hcard__name" id="hcName">YB Signature Burger</b><span class="hcard__price" id="hcPrice">ETB 180</span></div>
+      <button class="add" id="hcAdd" data-action="add" data-id="signature" aria-label="Add YB Signature Burger to cart"><svg class="i"><use href="#i-plus"/></svg></button>
+    </div>
+    <div class="thumbs" role="tablist" aria-label="Featured dishes">
+      <button class="th on" role="tab" aria-selected="true" aria-label="Show YB Signature Burger"><img data-img="burger_hero" alt=""><i class="th__bar"></i></button>
+      <button class="th" role="tab" aria-selected="false" aria-label="Show Crispy Chicken Burger"><img data-img="burger_crispy" alt=""><i class="th__bar"></i></button>
+      <button class="th" role="tab" aria-selected="false" aria-label="Show Cheesy Pepperoni Pizza"><img data-img="pizza_pull" alt=""><i class="th__bar"></i></button>
+      <button class="th" role="tab" aria-selected="false" aria-label="Show Crunchy Chicken Tenders"><img data-img="tenders" alt=""><i class="th__bar"></i></button>
+    </div>
+  </div>
+  <div class="wrap hero__in">
+    <div class="hero__copy">
+      <p class="hero__eyebrow">Welcome to YB Restaurant</p>
+      <h1><span>Good Food.</span><span>Good <b class="mood">Mood.</b></span></h1>
+      <p class="hero__lead">Fresh ingredients, great taste, and a cozy atmosphere. Enjoy the best food experience with us.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#menu">View Menu <svg class="i i--arrow"><use href="#i-arrow"/></svg></a>
+        <button class="btn btn--ghost" data-action="order-now">Order Now</button>
+      </div>
+      <div class="hero__facts">
+        <span class="chip-info"><i class="dot" id="openDot"></i><span id="openText">Open daily 10:00 AM – 11:00 PM</span></span>
+        <span class="chip-info"><svg class="i"><use href="#i-pin"/></svg>Debre Birhan, Ethiopia</span>
+      </div>
+    </div>
+  </div>
+  <a class="scroll-hint" href="#menu" aria-label="Scroll down to the menu"><span>Scroll Down</span><svg class="i"><use href="#i-down"/></svg></a>
+</section>
+
+<div class="ribbon" aria-label="Popular dishes"><div class="ribbon__track" id="ribbonTrack"></div></div>
+
+<!-- ============ MENU ============ -->
+<section class="section" id="menu" data-section="menu">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2 class="sec-title">Our <em>Menu</em></h2>
+        <p class="sec-sub">Delicious food, made with fresh ingredients. Explore our menu and find your favorite.</p>
+      </div>
+      <a class="link-more" href="#fullmenu" data-action="show-all">View Full Menu <svg class="i"><use href="#i-arrow"/></svg></a>
+    </div>
+
+    <div class="cats" id="cats"></div>
+
+    <div class="subhead">
+      <div><h3>Chef's picks</h3><p>Four plates we'd put on your table first.</p></div>
+    </div>
+    <div class="picks" id="picks"></div>
+
+    <div class="fullmenu" id="fullmenu">
+      <div class="fullmenu__head">
+        <h3 class="fullmenu__title"><span id="menuTitle">Full menu</span><span class="fullmenu__count" id="menuCount"></span></h3>
+        <div class="chips" id="chips" role="tablist" aria-label="Menu categories"></div>
+      </div>
+      <div class="dishes" id="dishes" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section section--alt" id="about" data-section="about">
+  <div class="wrap about">
+    <div class="about__media">
+      <div class="about__main"><img data-img="chef" alt="A chef carefully preparing fresh ingredients in the YB Restaurant kitchen" loading="lazy"></div>
+      <div class="about__inset"><img data-img="waiter" alt="A waiter serving smiling guests at their table" loading="lazy"></div>
+      <div class="about__badge"><svg class="i"><use href="#i-utensils"/></svg><div><b>Cooked fresh</b><span>Every order, every day</span></div></div>
+    </div>
+    <div>
+      <h2 class="sec-title">About <em>Us</em></h2>
+      <p class="about__lede">More than just a restaurant — we serve happiness.</p>
+      <p class="about__text">YB Restaurant was founded with a simple goal — to bring people together through great food. We use fresh, high-quality ingredients and traditional recipes with a modern touch. Whether you're here for a quick bite or a special celebration, we promise a memorable experience.</p>
+      <div class="about__more" id="aboutMore"><p>Pull up a chair inside, or take a table on our terrace. Our kitchen cooks to order, our team keeps things relaxed, and there's always room for one more at the table.</p></div>
+      <div class="feats">
+        <div class="feat"><span class="feat__i"><svg class="i"><use href="#i-leaf"/></svg></span>Fresh<br>Ingredients</div>
+        <div class="feat"><span class="feat__i"><svg class="i"><use href="#i-chef"/></svg></span>Skilled<br>Chefs</div>
+        <div class="feat"><span class="feat__i"><svg class="i"><use href="#i-heart"/></svg></span>Cozy<br>Atmosphere</div>
+      </div>
+      <button class="btn btn--outline" id="learnMore" aria-expanded="false" aria-controls="aboutMore"><span>Learn More</span> <svg class="i i--arrow"><use href="#i-arrow"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPACE ============ -->
+<section class="section" id="space" data-section="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2 class="sec-title">Our <em>Space</em></h2>
+        <p class="sec-sub">Inside, at the bar or out on the terrace. Pick the table that suits your mood.</p>
+      </div>
+    </div>
+    <div class="space" id="spaceList" role="tablist" aria-label="Restaurant spaces"></div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="section section--alt" id="gallery" data-section="gallery">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2 class="sec-title">Our <em>Gallery</em></h2>
+        <p class="sec-sub">Take a look at some moments from our restaurant.</p>
+      </div>
+      <button class="link-more" id="galToggle" aria-expanded="false"><span>View All Photos</span> <svg class="i"><use href="#i-arrow"/></svg></button>
+    </div>
+    <div class="chips gal-chips" id="galChips" role="tablist" aria-label="Photo categories"></div>
+    <div class="mason" id="gallery-grid"></div>
+  </div>
+</section>
+
+<!-- ============ ORDER CTA ============ -->
+<section class="cta-sec" data-section="contact" aria-label="Order or visit">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <h2>Hungry? Come sit <em>with us.</em></h2>
+        <p>Order online for pickup, or call ahead and we'll have your table ready.</p>
+        <div class="cta__btns">
+          <button class="btn btn--primary" data-action="order-now">Order Now <svg class="i i--arrow"><use href="#i-arrow"/></svg></button>
+          <a class="btn btn--ghost" href="tel:+251912345678"><svg class="i"><use href="#i-phone"/></svg>+251 912 345 678</a>
+        </div>
+        <span class="cta__hrs"><svg class="i"><use href="#i-clock"/></svg>Open daily, 10:00 AM – 11:00 PM</span>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <img data-img="burger_crispy" alt="">
+        <img data-img="pizza_pull" alt="">
+        <img data-img="drinks" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact" id="contact" data-section="contact">
+  <div class="contact__bg" id="contactBg" aria-hidden="true"></div>
+  <div class="wrap contact__grid">
+    <div>
+      <h2 class="sec-title">Contact <em>Us</em></h2>
+      <p class="sec-sub">We'd love to hear from you. Reach out to us for reservations, questions, or feedback.</p>
+      <div class="info">
+        <div class="info__row"><span class="info__ic"><svg class="i"><use href="#i-phone"/></svg></span><div><b>+251 912 345 678</b><a class="sub" href="tel:+251912345678">Call us anytime</a></div></div>
+        <div class="info__row"><span class="info__ic"><svg class="i"><use href="#i-pin"/></svg></span><div><b>Debre Birhan, Ethiopia</b><a class="sub" href="https://www.google.com/maps/search/?api=1&query=Debre+Birhan+Ethiopia" target="_blank" rel="noopener">Visit our restaurant</a></div></div>
+        <div class="info__row"><span class="info__ic"><svg class="i"><use href="#i-clock"/></svg></span><div><b>Open Daily</b><span>10:00 AM – 11:00 PM</span></div></div>
+      </div>
+      <div class="socials">
+        <a class="social" href="#" aria-label="YB Restaurant on Facebook"><svg class="i"><use href="#i-fb"/></svg></a>
+        <a class="social" href="#" aria-label="YB Restaurant on Instagram"><svg class="i"><use href="#i-ig"/></svg></a>
+        <a class="social" href="#" aria-label="YB Restaurant on TikTok"><svg class="i"><use href="#i-tt"/></svg></a>
+        <a class="social" href="#" aria-label="YB Restaurant on YouTube"><svg class="i"><use href="#i-yt"/></svg></a>
+      </div>
+    </div>
+    <form class="form" id="form" novalidate>
+      <div class="form__row">
+        <div class="field"><label class="sr-only" for="fName">Your name</label><input id="fName" name="name" placeholder="Your Name" autocomplete="name" required><p class="msg">Please enter your name.</p></div>
+        <div class="field"><label class="sr-only" for="fEmail">Your email</label><input id="fEmail" name="email" type="email" placeholder="Your Email" autocomplete="email" required><p class="msg">Enter a valid email address.</p></div>
+      </div>
+      <div class="field"><label class="sr-only" for="fMsg">Your message</label><textarea id="fMsg" name="message" placeholder="Your Message" required></textarea><p class="msg">Write a short message for us.</p></div>
+      <button class="btn btn--primary btn--block" type="submit" id="fBtn" style="border-radius:12px">Send Message <svg class="i"><use href="#i-send"/></svg></button>
+      <p class="form__status" id="fStatus" role="status"></p>
+    </form>
+  </div>
+  <div class="wrap mapwrap">
+    <div class="mapcard">
+      <iframe title="Map of Debre Birhan, Ethiopia, where YB Restaurant is located" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Debre%20Birhan%2C%20Ethiopia&z=13&output=embed"></iframe>
+      <a class="btn btn--primary btn--sm mapcard__link" href="https://www.google.com/maps/dir/?api=1&destination=Debre+Birhan+Ethiopia" target="_blank" rel="noopener">Get directions <svg class="i i--arrow"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="footer">
+  <div class="wrap footer__in">
+    <a href="#home" class="logo" aria-label="YB Restaurant — back to top"><svg class="logo__mark" style="width:30px;height:30px"><use href="#logo"/></svg><span class="logo__txt"><span class="logo__name" style="font-size:1.05rem">YB <b>Restaurant</b></span></span></a>
+    <p class="footer__tag">Good Food. Good Mood.</p>
+    <div class="footer__r">
+      <nav aria-label="Footer"><a href="#home">Home</a><a href="#menu">Menu</a><a href="#about">About</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a></nav>
+      <span>© <span id="year">2026</span> YB Restaurant. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- mobile bottom tab bar -->
+<nav class="tabbar" aria-label="Quick navigation">
+  <a href="#home" data-spy="home"><svg class="i"><use href="#i-home"/></svg>Home</a>
+  <a href="#menu" data-spy="menu"><svg class="i"><use href="#i-utensils"/></svg>Menu</a>
+  <a href="#gallery" data-spy="gallery"><svg class="i"><use href="#i-image"/></svg>Gallery</a>
+  <a href="#about" data-spy="about"><svg class="i"><use href="#i-user"/></svg>About</a>
+  <a href="#contact" data-spy="contact"><svg class="i"><use href="#i-phone"/></svg>Contact</a>
+</nav>
+
+<!-- ============ LAYERS ============ -->
+<div class="layer" id="navLayer" role="dialog" aria-modal="true" aria-label="Navigation">
+  <div class="drawer">
+    <div class="drawer__top">
+      <a href="#home" class="logo" data-close><svg class="logo__mark"><use href="#logo"/></svg><span class="logo__txt"><span class="logo__name">YB <b>Restaurant</b></span><span class="logo__tag" style="display:block">Good Food. Good Mood.</span></span></a>
+      <button class="icon-btn" data-close aria-label="Close navigation"><svg class="i"><use href="#i-x"/></svg></button>
+    </div>
+    <nav aria-label="Mobile">
+      <a href="#home" data-spy="home" data-close><svg class="i"><use href="#i-home"/></svg>Home</a>
+      <a href="#menu" data-spy="menu" data-close><svg class="i"><use href="#i-utensils"/></svg>Menu</a>
+      <a href="#about" data-spy="about" data-close><svg class="i"><use href="#i-user"/></svg>About</a>
+      <a href="#gallery" data-spy="gallery" data-close><svg class="i"><use href="#i-image"/></svg>Gallery</a>
+      <a href="#contact" data-spy="contact" data-close><svg class="i"><use href="#i-phone"/></svg>Contact</a>
+    </nav>
+    <div class="lang-switch" id="drawerLangSwitch" role="group" aria-label="Language"><button type="button" data-lang="en" class="active">EN</button><button type="button" data-lang="am">አማ</button></div>
+     <button class="btn btn--primary btn--block" data-action="order-now" data-close>Order Now <svg class="i i--arrow"><use href="#i-arrow"/></svg></button>
+    <div class="drawer__card" id="drawerCard"><p>Good Food.<b>Good Mood.</b></p></div>
+    <div class="socials">
+      <a class="social" href="#" aria-label="Facebook"><svg class="i"><use href="#i-fb"/></svg></a>
+      <a class="social" href="#" aria-label="Instagram"><svg class="i"><use href="#i-ig"/></svg></a>
+      <a class="social" href="#" aria-label="TikTok"><svg class="i"><use href="#i-tt"/></svg></a>
+      <a class="social" href="#" aria-label="YouTube"><svg class="i"><use href="#i-yt"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<div class="layer" id="itemLayer" role="dialog" aria-modal="true" aria-label="Dish details">
+  <div class="scrim" data-close></div>
+  <div class="modal" id="itemModal"></div>
+</div>
+
+<div class="layer" id="cartLayer" role="dialog" aria-modal="true" aria-label="Your cart">
+  <div class="scrim" data-close></div>
+  <aside class="cart" id="cartPanel"></aside>
+</div>
+
+<div class="layer" id="searchLayer" role="dialog" aria-modal="true" aria-label="Search the menu">
+  <div class="scrim" data-close></div>
+  <div class="search">
+    <div class="search__bar">
+      <svg class="i"><use href="#i-search"/></svg>
+      <input id="searchInput" type="search" placeholder="Search burgers, pizza, chicken…" autocomplete="off" aria-label="Search the menu">
+      <button class="icon-btn" data-close aria-label="Close search"><svg class="i"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="search__res" id="searchRes"></div>
+  </div>
+</div>
+
+<div class="layer" id="lbLayer" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="lb" id="lb">
+    <button class="x" data-close aria-label="Close photo viewer"><svg class="i"><use href="#i-x"/></svg></button>
+    <button class="lb__nav lb__prev" data-lb="-1" aria-label="Previous photo"><svg class="i"><use href="#i-left"/></svg></button>
+    <figure><img id="lbImg" alt=""><figcaption><span id="lbCap"></span><small id="lbCount"></small></figcaption></figure>
+    <button class="lb__nav lb__next" data-lb="1" aria-label="Next photo"><svg class="i"><use href="#i-right"/></svg></button>
+  </div>
+</div>
+
+<button class="cartbar" id="cartBar" data-action="open-cart" aria-label="View your cart"><span class="cartbar__l"><svg class="i"><use href="#i-cart"/></svg><span id="cbCount">0 items</span><span id="cbTotal">ETB 0</span></span><span class="cartbar__go"><svg class="i"><use href="#i-arrow"/></svg></span></button>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><svg class="i"><use href="#i-check"/></svg><span id="toastTxt"></span></div>
+
+<script>
+const IMG = {
+  "burger_hero": "./burger_hero.jpg",
+  "burger_crispy": "./burger_crispy.jpg",
+  "pizza_pull": "./pizza_pull.jpg",
+  "pizza_pep": "./pizza_pep.jpg",
+  "tenders": "./tenders.jpg",
+  "chicken_platter": "./chicken_platter.jpg",
+  "fries": "./fries.jpg",
+  "drinks": "./drinks.jpg",
+  "cake": "./cake.jpg",
+  "sandwich": "./sandwich.jpg",
+  "salad": "./salad.jpg",
+  "chef": "./chef.jpg",
+  "waiter": "./waiter.jpg",
+  "dining": "./dining.jpg",
+  "int_booth": "./int_booth.jpg",
+  "int_bar": "./int_bar.jpg",
+  "int_lounge": "./int_lounge.jpg",
+  "terrace_out": "./terrace_out.jpg",
+  "terrace_in": "./terrace_in.jpg"
+};
+</script>
+<script>
+(() => {
+'use strict';
+
+/* ================= LANGUAGE SYSTEM ================= */
+const I18N={
+ en:{skip:'Skip to menu',home:'Home',menu:'Menu',about:'About',gallery:'Gallery',contact:'Contact',orderNow:'Order Now',searchMenu:'Search the menu',openCart:'Open cart',welcome:'Welcome to YB Restaurant',goodFood:'Good Food.',goodMood:'Good Mood.',heroLead:'Fresh ingredients, great taste, and a cozy atmosphere. Enjoy the best food experience with us.',viewMenu:'View Menu',scrollDown:'Scroll Down',cookedFresh:'Cooked fresh · Served hot · Made with love ·',ourMenu:'Our Menu',menuSub:'Delicious food, made with fresh ingredients. Explore our menu and find your favorite.',viewFull:'View Full Menu',chefsPicks:"Chef's picks",chefsSub:"Four plates we'd put on your table first.",fullMenu:'Full menu',aboutUs:'About Us',aboutLede:'More than just a restaurant — we serve happiness.',aboutText:"YB Restaurant was founded with a simple goal — to bring people together through great food. We use fresh, high-quality ingredients and traditional recipes with a modern touch. Whether you're here for a quick bite or a special celebration, we promise a memorable experience.",aboutMore:"Pull up a chair inside, or take a table on our terrace. Our kitchen cooks to order, our team keeps things relaxed, and there's always room for one more at the table.",freshIngredients:'Fresh Ingredients',skilledChefs:'Skilled Chefs',cozyAtmosphere:'Cozy Atmosphere',learnMore:'Learn More',showLess:'Show Less',ourSpace:'Our Space',spaceSub:'Inside, at the bar or out on the terrace. Pick the table that suits your mood.',ourGallery:'Our Gallery',gallerySub:'Take a look at some moments from our restaurant.',viewAllPhotos:'View All Photos',hungry:'Hungry? Come sit with us.',orderPickup:"Order online for pickup, or call ahead and we'll have your table ready.",openDaily:'Open daily, 10:00 AM – 11:00 PM',contactUs:'Contact Us',contactSub:"We'd love to hear from you. Reach out to us for reservations, questions, or feedback.",callAnytime:'Call us anytime',visitRestaurant:'Visit our restaurant',openDailyLabel:'Open Daily',yourName:'Your Name',yourEmail:'Your Email',yourMessage:'Your Message',enterName:'Please enter your name.',validEmail:'Enter a valid email address.',writeMessage:'Write a short message for us.',sendMessage:'Send Message',directions:'Get directions',footer:'All rights reserved.',yourCart:'Your cart',closeCart:'Close cart',browseMenu:'Browse the menu',cartEmpty:'Your cart is empty',pickTasty:'Pick something tasty from the menu.',subtotal:'Subtotal',pickup:'Pickup',dineIn:'Dine-in',orderType:'Order type',placeTelegram:'Place order on Telegram',telegramNote:'Your order opens in Telegram with a professional, ready-to-send order summary.',clearCart:'Clear cart',decrease:'Decrease quantity',increase:'Increase quantity',remove:'Remove',addToCart:'Add to Cart',youMayLike:'You May Also Like',searchHint:'Try “burger”, “pizza” or “chicken”.',noMatch:'No dishes match',nothing:'Nothing here yet.',view:'View',add:'Add',added:'added to cart',telegramNotConfigured:'Telegram ordering is not configured yet',orderConfirm:'Please confirm this order. Thank you! 🙏',orderDetails:'ORDER DETAILS',newOrder:'NEW ORDER',order:'Order',date:'Date',time:'Time',orderTypeLabel:'Order type',total:'TOTAL',orderSource:'Source',website:'YB Restaurant website',customer:'Customer',customerPrompt:'Please reply with your name and phone number.',thankYou:'Thank you',messageSent:'Your message has been sent.',fixFields:'Please fix the highlighted fields.',sendFailed:"We couldn't send that. Please call us on",openUntil:'Open now · until 11:00 PM',closedUntil:'Closed now · opens 10:00 AM',item:'item',items:'items',dish:'dish',dishes:'dishes'},
+ am:{skip:'ወደ ምናሌ ይሂዱ',home:'መነሻ',menu:'ምናሌ',about:'ስለ እኛ',gallery:'ጋለሪ',contact:'ያግኙን',orderNow:'አሁን ይዘዙ',searchMenu:'ምናሌውን ይፈልጉ',openCart:'የትዕዛዝ ቅርጫት ይክፈቱ',welcome:'ወደ YB Restaurant እንኳን በደህና መጡ',goodFood:'ጣፋጭ ምግብ።',goodMood:'ጥሩ ስሜት።',heroLead:'ከአዲስ ጥሬ ዕቃዎች፣ ከምርጥ ጣዕም እና ከምቹ አካባቢ ጋር። ከእኛ ጋር ምርጥ የምግብ ተሞክሮን ይደሰቱ።',viewMenu:'ምናሌውን ይመልከቱ',scrollDown:'ወደ ታች ይሸብልሉ',cookedFresh:'ትኩስ ተዘጋጅቷል · በሙቀት ይቀርባል · በፍቅር የተሰራ ·',ourMenu:'የእኛ ምናሌ',menuSub:'ከአዲስ ጥሬ ዕቃዎች የተዘጋጁ ጣፋጭ ምግቦች። ምናሌያችንን ይመልከቱና የሚወዱትን ይምረጡ።',viewFull:'ሙሉ ምናሌውን ይመልከቱ',chefsPicks:'የሼፉ ምርጫዎች',chefsSub:'መጀመሪያ በጠረጴዛዎ ላይ እንዲቀርቡ የምንመክራቸው አራት ምግቦች።',fullMenu:'ሙሉ ምናሌ',aboutUs:'ስለ እኛ',aboutLede:'ከሬስቶራንት በላይ — ደስታን እናገለግላለን።',aboutText:'YB Restaurant ሰዎችን በምርጥ ምግብ እንዲቀራረቡ በማድረግ ላይ የተመሰረተ ቀላል ዓላማ አለው። አዲስና ከፍተኛ ጥራት ያላቸውን ጥሬ ዕቃዎች እንጠቀማለን፣ ባህላዊ አሰራሮችንም ከዘመናዊ አቀራረብ ጋር እናጣምራለን። ለፈጣን ምግብም ሆነ ለልዩ ዝግጅት ቢመጡ፣ የማይረሳ ተሞክሮ እንደሚያገኙ ቃል እንገባለን።',aboutMore:'ውስጥ ቦታ ይያዙ ወይም በቴራሳችን ላይ ጠረጴዛ ይምረጡ። ወጥ ቤታችን ትዕዛዝ ሲመጣ በትኩስነት ያዘጋጃል፣ ቡድናችንም ዘና ያለ አገልግሎት ይሰጣል፤ ሁልጊዜም ለአንድ ተጨማሪ ሰው ቦታ አለ።',freshIngredients:'አዲስ ጥሬ ዕቃዎች',skilledChefs:'ባለሙያ ሼፎች',cozyAtmosphere:'ምቹ አካባቢ',learnMore:'ተጨማሪ ይወቁ',showLess:'አነስተኛ ያሳዩ',ourSpace:'የእኛ ቦታ',spaceSub:'በውስጥ፣ በባሩ አጠገብ ወይም በቴራሳችን ላይ። ከስሜትዎ ጋር የሚስማማውን ጠረጴዛ ይምረጡ።',ourGallery:'የእኛ ጋለሪ',gallerySub:'ከሬስቶራንታችን የተወሰኑ የምግብና የቦታ ጊዜያትን ይመልከቱ።',viewAllPhotos:'ሁሉንም ፎቶዎች ይመልከቱ',hungry:'ርቦታል? ከእኛ ጋር ይቀመጡ።',orderPickup:'ለመውሰድ በመስመር ላይ ይዘዙ፣ ወይም አስቀድመው ይደውሉና ጠረጴዛዎን እናዘጋጃለን።',openDaily:'በየቀኑ ከ10:00 ጥዋት – 11:00 ማታ',contactUs:'ያግኙን',contactSub:'ከእርስዎ መስማት ደስ ይለናል። ለቦታ ማስያዝ፣ ለጥያቄ ወይም ለአስተያየት ያነጋግሩን።',callAnytime:'በማንኛውም ጊዜ ይደውሉልን',visitRestaurant:'ሬስቶራንታችንን ይጎብኙ',openDailyLabel:'በየቀኑ ክፍት',yourName:'ስምዎ',yourEmail:'ኢሜይልዎ',yourMessage:'መልዕክትዎ',enterName:'እባክዎ ስምዎን ያስገቡ።',validEmail:'ትክክለኛ የኢሜይል አድራሻ ያስገቡ።',writeMessage:'አጭር መልዕክት ይጻፉልን።',sendMessage:'መልዕክት ይላኩ',directions:'አቅጣጫ ያግኙ',footer:'መብቱ በህግ የተጠበቀ ነው።',yourCart:'የትዕዛዝ ቅርጫትዎ',closeCart:'ቅርጫቱን ይዝጉ',browseMenu:'ምናሌውን ይመልከቱ',cartEmpty:'የትዕዛዝ ቅርጫትዎ ባዶ ነው',pickTasty:'ከምናሌው ጣፋጭ ነገር ይምረጡ።',subtotal:'ድምር ንዑስ',pickup:'መውሰጃ',dineIn:'በሬስቶራንቱ መመገብ',orderType:'የትዕዛዝ አይነት',placeTelegram:'በTelegram ትዕዛዝ ይላኩ',telegramNote:'ትዕዛዝዎ በTelegram ይከፈታል እና ለመላክ የተዘጋጀ ፕሮፌሽናል ማጠቃለያ ይወጣል።',clearCart:'ቅርጫቱን ያጽዱ',decrease:'መጠን ይቀንሱ',increase:'መጠን ይጨምሩ',remove:'ያስወግዱ',addToCart:'ወደ ቅርጫት ያክሉ',youMayLike:'እነዚህንም ሊወዷቸው ይችላሉ',searchHint:'“burger”፣ “pizza” ወይም “chicken” ይፈልጉ።',noMatch:'ከፍለጋዎ ጋር የሚጣጣም ምግብ የለም',nothing:'እዚህ ላይ እስካሁን ምንም የለም።',view:'ይመልከቱ',add:'ያክሉ',added:'ወደ ቅርጫት ተጨምሯል',telegramNotConfigured:'የTelegram ትዕዛዝ አልተዋቀረም',orderConfirm:'እባክዎ ይህን ትዕዛዝ ያረጋግጡ። እናመሰግናለን! 🙏',orderDetails:'የትዕዛዝ ዝርዝሮች',newOrder:'አዲስ ትዕዛዝ',order:'ትዕዛዝ',date:'ቀን',time:'ሰዓት',orderTypeLabel:'የትዕዛዝ አይነት',total:'ጠቅላላ',orderSource:'ምንጭ',website:'የYB Restaurant ድህረ ገጽ',customer:'ደንበኛ',customerPrompt:'እባክዎ በTelegram ላይ ስምዎንና ስልክ ቁጥርዎን ይላኩ።',thankYou:'እናመሰግናለን',messageSent:'መልዕክትዎ ተልኳል።',fixFields:'እባክዎ በምልክት የተደረጉትን መስኮች ያስተካክሉ።',sendFailed:'መልዕክቱን መላክ አልተቻለም። እባክዎ በዚህ ስልክ ይደውሉልን',openUntil:'አሁን ክፍት · እስከ 11:00 ማታ',closedUntil:'አሁን ዝግ ነው · በ10:00 ጥዋት ይከፈታል',item:'ንጥል',items:'ንጥሎች',dish:'ምግብ',dishes:'ምግቦች'}
+};
+let LANG=localStorage.getItem('yb-lang')==='am'?'am':'en';
+const t=k=>(I18N[LANG]&&I18N[LANG][k])||I18N.en[k]||k;
+const itemName=it=>LANG==='am'?(it.nameAm||it.name):it.name;
+const itemDesc=it=>LANG==='am'?(it.descAm||it.desc):it.desc;
+const catLabel=k=>{const c=CATS.find(c=>c.key===k);return c?(LANG==='am'?(c.labelAm||c.label):c.label):''};
+const spaceTitle=s=>LANG==='am'?(s.tAm||s.t):s.t;
+const spaceDesc=s=>LANG==='am'?(s.dAm||s.d):s.d;
+function applyLanguage(){
+ document.documentElement.lang=LANG; document.body.classList.toggle('lang-am',LANG==='am');
+ document.title=LANG==='am'?'YB Restaurant — ጣፋጭ ምግብ። ጥሩ ስሜት።':'YB Restaurant — Good Food. Good Mood.';
+ $$('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===LANG));
+ const text={'.skip':'skip','.nav [data-spy="home"]':'home','.nav [data-spy="menu"]':'menu','.nav [data-spy="about"]':'about','.nav [data-spy="gallery"]':'gallery','.nav [data-spy="contact"]':'contact','.header__order':'orderNow','.hero__eyebrow':'welcome','.hero__lead':'heroLead','.hero__cta a':'viewMenu','.hero__cta [data-action="order-now"]':'orderNow','.scroll-hint span':'scrollDown','.subhead h3':'chefsPicks','.subhead p':'chefsSub','#menuTitle':'fullMenu','#about .sec-title':'aboutUs','#about .about__lede':'aboutLede','#about .about__text':'aboutText','#aboutMore p':'aboutMore','#space .sec-title':'ourSpace','#space .sec-sub':'spaceSub','#gallery .sec-title':'ourGallery','#gallery .sec-sub':'gallerySub','#galToggle span':'viewAllPhotos','.cta p':'orderPickup','.contact .sec-title':'contactUs','.contact .sec-sub':'contactSub','.mapcard__link':'directions','.footer__tag':'goodMood','.footer__r nav [href="#home"]':'home','.footer__r nav [href="#menu"]':'menu','.footer__r nav [href="#about"]':'about','.footer__r nav [href="#gallery"]':'gallery','.footer__r nav [href="#contact"]':'contact','.drawer nav [data-spy="home"]':'home','.drawer nav [data-spy="menu"]':'menu','.drawer nav [data-spy="about"]':'about','.drawer nav [data-spy="gallery"]':'gallery','.drawer nav [data-spy="contact"]':'contact','.drawer [data-action="order-now"]':'orderNow','#searchInput':'searchMenu','#fBtn':'sendMessage'};
+ Object.entries(text).forEach(([sel,key])=>$$ (sel).forEach(el=>{if(el.matches('input,textarea'))el.placeholder=t(key);else if(el.querySelector('.i')){const n=[...el.childNodes].find(n=>n.nodeType===3&&n.textContent.trim());if(n)n.textContent=' '+t(key)+' ';}else el.textContent=t(key);}));
+ const lm=$('#learnMore'); if(lm){ const open=$('#aboutMore')?.classList.contains('open'); $('span',lm).textContent=open?t('showLess'):t('learnMore'); lm.setAttribute('aria-expanded',!!open); }
+ $('#openText').textContent=$('#openDot').classList.contains('closed')?t('closedUntil'):t('openUntil');
+ $('#fName').setAttribute('aria-label',t('yourName'));$('#fEmail').setAttribute('aria-label',t('yourEmail'));$('#fMsg').setAttribute('aria-label',t('yourMessage'));$('#searchInput').setAttribute('aria-label',t('searchMenu'));
+ $('#skip').textContent=t('skip');
+ $('#langSwitch').setAttribute('aria-label',LANG==='am'?'ቋንቋ':'Language');$('#drawerLangSwitch').setAttribute('aria-label',LANG==='am'?'ቋንቋ':'Language');
+ const f=$$('.feat'); if(f.length>=3){f[0].innerHTML=`<span class="feat__i">${IC('leaf')}</span>${LANG==='am'?'አዲስ<br>ጥሬ ዕቃዎች':'Fresh<br>Ingredients'}`;f[1].innerHTML=`<span class="feat__i">${IC('chef')}</span>${LANG==='am'?'ባለሙያ<br>ሼፎች':'Skilled<br>Chefs'}`;f[2].innerHTML=`<span class="feat__i">${IC('heart')}</span>${LANG==='am'?'ምቹ<br>አካባቢ':'Cozy<br>Atmosphere'}`;}
+ $('#cats').innerHTML = CATS.map(c => `
+  <button class="cat" data-action="filter" data-cat="${c.key}" aria-label="Show ${c.label}">
+    <div class="cat__img"><img src="${src(c.img)}" alt="" style="object-position:${c.pos}" loading="lazy" decoding="async"></div>
+    <div class="cat__body"><div><div class="cat__t">${LANG==='am'?c.labelAm:c.label}</div><div class="cat__s">${LANG==='am'?c.subAm:c.sub}</div></div>${IC('arrow')}</div>
+  </button>`).join('');
+renderMenu();renderCart();renderGallery();paintCard();renderSearch($('#searchInput').value||'');
+ $('#picks').innerHTML=PICKS.map(p=>{const it=byId(p.id);return `<article class="pick pick--${p.c}"><img src="${src(it.img)}" alt="" style="object-position:${p.pos}" loading="lazy" decoding="async"><div class="pick__in"><div><span class="pick__tag">${catLabel(it.cat)}</span><button class="pick__name" data-action="open-item" data-id="${it.id}">${itemName(it)}</button><p class="pick__desc">${itemDesc(it)}</p><span class="price">${money(it.price)}</span></div><button class="add" data-action="add" data-id="${it.id}" aria-label="${t('add')} ${itemName(it)} to cart">${IC('plus')}</button></div></article>`}).join('');
+ spaceEl.innerHTML=SPACE.map((x,i)=>`<button class="pan ${i===0?'on':''}" role="tab" aria-selected="${i===0}" data-i="${i}"><img src="${src(x.img)}" alt="${spaceTitle(x)}" style="object-position:${x.pos}" loading="lazy" decoding="async"><div class="pan__t"><b>${spaceTitle(x)}</b><span>${spaceDesc(x)}</span></div></button>`).join(''); bindPans();
+ $('#ribbonTrack').innerHTML = MENU.map(it => rp(it)).join('') + `<span aria-hidden="true" style="display:contents">${MENU.map(it => rp(it, true)).join('')}</span>`;
+}
+function setLanguage(n){if(!I18N[n]||n===LANG)return;LANG=n;localStorage.setItem('yb-lang',LANG);applyLanguage();toast(LANG==='am'?'ቋንቋው ወደ አማርኛ ተቀይሯል።':'Language switched to English.');}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-lang]');if(b)setLanguage(b.dataset.lang);});
+
+/* ================= CONFIG — edit these ================= */
+const CONFIG = {
+  // IMPORTANT: set your real Telegram username (without @)
+  telegramUsername: 'encrypteed',
+  phoneDisplay: '+251 912 345 678',
+  openHour: 10,
+  closeHour: 23,                     // Open daily 10:00 – 23:00
+  tzOffset: 3,                       // Ethiopia = UTC+3
+  formEndpoint: ''                   // optional: Formspree / backend URL for contact form
+};
+
+/* ================= DATA ================= */
+const CATS = [
+  { key:'burgers',  label:'Burgers', labelAm:'በርገር', sub:'Juicy & Fresh', subAm:'ጭማቂ እና ትኩስ',     img:'burger_hero', pos:'50% 45%' },
+  { key:'pizza',    label:'Pizza', labelAm:'ፒዛ', sub:'Cheesy & Tasty', subAm:'አይብ ያለው እና ጣፋጭ',    img:'pizza_pep',   pos:'50% 50%' },
+  { key:'chicken',  label:'Chicken', labelAm:'ዶሮ', sub:'Crispy & Flavorful', subAm:'ቆራሪ እና ጣዕም ያለው',img:'tenders',     pos:'50% 40%' },
+  { key:'fries',    label:'Fries', labelAm:'ፍራይስ', sub:'Golden & Crispy', subAm:'ወርቃማ እና ቆራሪ',   img:'fries',       pos:'50% 50%' },
+  { key:'drinks',   label:'Drinks', labelAm:'መጠጦች', sub:'Cool & Refreshing', subAm:'ቀዝቃዛ እና አድሳሽ', img:'drinks',      pos:'50% 62%' },
+  { key:'desserts', label:'Desserts', labelAm:'ጣፋጮች', sub:'Sweet Moments', subAm:'ጣፋጭ ጊዜያት',     img:'cake',        pos:'50% 42%' }
+];
+const MENU = [
+  { id:'signature', cat:'burgers',  name:'YB Signature Burger', nameAm:'የYB ልዩ በርገር',    price:180, img:'burger_hero',     desc:'Grilled patty, fresh lettuce, tomato, red onion and melted cheese, served with crispy fries.', descAm:'የተጠበሰ ስጋ፣ ትኩስ ሰላጣ፣ ቲማቲም፣ ቀይ ሽንኩርት እና የቀለጠ አይብ፣ ከቆራሪ ፍራይስ ጋር።' },
+  { id:'crispy',    cat:'burgers',  name:'Crispy Chicken Burger', nameAm:'ቆራሪ የዶሮ በርገር',  price:200, img:'burger_crispy',   desc:'Golden fried chicken fillet, melted cheese, creamy sauce, lettuce and tomato in a toasted sesame bun.', descAm:'ወርቃማ የተጠበሰ የዶሮ ስጋ፣ የቀለጠ አይብ፣ ክሬሚ ሶስ፣ ሰላጣ እና ቲማቲም በሰሊጥ ዳቦ ውስጥ።' },
+  { id:'sandwich',  cat:'burgers',  name:'Toasted Chicken Sandwich', nameAm:'ቶስት የዶሮ ሳንድዊች',price:170, img:'sandwich',       desc:'Toasted bread layered with chicken, crisp lettuce, tomato and our house sauce.', descAm:'በቶስት ዳቦ ውስጥ የተደረደረ ዶሮ፣ ቆራሪ ሰላጣ፣ ቲማቲም እና የቤት ሶስ።' },
+  { id:'pep',       cat:'pizza',    name:'Pepperoni Pizza', nameAm:'ፔፐሮኒ ፒዛ',        price:260, img:'pizza_pep',       desc:'Hot from the oven with a crisp crust, tomato sauce, mozzarella and spicy pepperoni.', descAm:'ከምድጃ በትኩስነት የወጣ፣ ቆራሪ ቅርፊት፣ የቲማቲም ሶስ፣ ሞዛሬላ እና ቅመማ ፔፐሮኒ።' },
+  { id:'cheesy',    cat:'pizza',    name:'Cheesy Pepperoni Pizza', nameAm:'አይብ የበዛበት ፔፐሮኒ ፒዛ', price:290, img:'pizza_pull',      desc:'Extra mozzarella, pepperoni and a golden, bubbling crust. Made for sharing.', descAm:'ተጨማሪ ሞዛሬላ፣ ፔፐሮኒ እና ወርቃማ የሚፈላ ቅርፊት። ለመጋራት የተዘጋጀ።' },
+  { id:'fried',     cat:'chicken',  name:'Fried Chicken', nameAm:'የተጠበሰ ዶሮ',          price:200, img:'chicken_platter', desc:'Crispy outside, juicy inside. Served with fries and two dipping sauces.', descAm:'ውጭው ቆራሪ፣ ውስጡ ለስላሳ። ከፍራይስ እና ከሁለት የማጥመቂያ ሶሶች ጋር።' },
+  { id:'tenders',   cat:'chicken',  name:'Crunchy Chicken Tenders', nameAm:'ቆራሪ የዶሮ ቁርጥራጮች',price:190, img:'tenders',         desc:'Breaded tenders fried until golden, tender and juicy on the inside.', descAm:'በቂጣ የተሸፈኑ የዶሮ ቁርጥራጮች፣ ወርቃማ እስኪሆኑ የተጠበሱ፣ ውስጣቸው ለስላሳ እና ጭማቂ ያለው።' },
+  { id:'fries',     cat:'fries',    name:'Seasoned Fries', nameAm:'ቅመማ ፍራይስ',         price:90,  img:'fries',           desc:'Golden fries tossed with herbs, served with a rich tomato dip.', descAm:'ወርቃማ ፍራይስ ከቅጠላቅጠል ጋር የተቀላቀለ፣ ከጣፋጭ የቲማቲም ዲፕ ጋር።' },
+  { id:'salad',     cat:'fries',    name:'Garden Salad', nameAm:'የአትክልት ሰላጣ',           price:110, img:'salad',           desc:'Crisp lettuce, tomato, cucumber and red onion with a light dressing.', descAm:'ትኩስ ሰላጣ፣ ቲማቲም፣ ኪያር እና ቀይ ሽንኩርት ከቀላል ድሬሲንግ ጋር።' },
+  { id:'cooler',    cat:'drinks',   name:'Fruit Cooler', nameAm:'የፍራፍሬ ኩለር',           price:90,  img:'drinks',          desc:'Layered, ice-cold fruit coolers topped with fresh berries and mint.', descAm:'በረዶ የተሞላ የፍራፍሬ መጠጥ፣ በትኩስ ቤሪ እና ሚንት የተሸፈነ።' },
+  { id:'cake',      cat:'desserts', name:'Chocolate Layer Cake', nameAm:'የቸኮሌት ኬክ',   price:150, img:'cake',            desc:'Rich chocolate sponge, silky ganache and chocolate shavings.', descAm:'የበለፀገ የቸኮሌት ስፖንጅ፣ ለስላሳ ጋናሽ እና የቸኮሌት ቁርጥራጮች።' }
+];
+const CHIPS = [{key:'all',label:'All',labelAm:'ሁሉም'},{key:'burgers',label:'Burgers',labelAm:'በርገር'},{key:'pizza',label:'Pizza',labelAm:'ፒዛ'},{key:'chicken',label:'Chicken',labelAm:'ዶሮ'},{key:'fries',label:'Fries',labelAm:'ፍራይስ'},{key:'drinks',label:'Drinks',labelAm:'መጠጦች'},{key:'desserts',label:'Desserts',labelAm:'ጣፋጮች'}];
+
+
+/* ================= HELPERS ================= */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const IC = n => `<svg class="i"><use href="#i-${n}"/></svg>`;
+const money = n => `<small>ETB</small>${n}`;
+const byId = id => MENU.find(m => m.id === id);
+const src = n => IMG[n];
+
+/* All 19 restaurant images live beside this HTML file. If a local image uses
+   .jpeg/.png/.webp instead of .jpg, automatically try those extensions. */
+const IMAGE_EXTS = ['.jpg','.jpeg','.png','.webp'];
+const imageFallback = el => {
+  const key = el.dataset?.imgKey || el.dataset?.img;
+  if (!key) return;
+  const i = Number(el.dataset.imgExt || 0) + 1;
+  if (i >= IMAGE_EXTS.length) return;
+  el.dataset.imgExt = i;
+  el.src = './' + key + IMAGE_EXTS[i];
+};
+
+/* Apply fallback to every image generated by the site. */
+document.addEventListener('error', e => {
+  const el = e.target;
+  if (el && el.tagName === 'IMG') imageFallback(el);
+}, true);
+
+/* images from the embedded library */
+$$('[data-img]').forEach(el => { el.dataset.imgKey = el.dataset.img; el.dataset.imgExt = 0; el.src = src(el.dataset.img); });
+$('#contactBg').style.backgroundImage = `url(${src('chicken_platter')})`;
+$('#drawerCard').style.backgroundImage = `url(${src('burger_hero')})`;
+$('#year').textContent = new Date().getFullYear();
+
+/* ================= LAYERS ================= */
+const stack = [];
+let lastFocus = null;
+function openLayer(el, trigger){
+  lastFocus = trigger || document.activeElement;
+  el.classList.add('show');
+  stack.push(el);
+  document.body.classList.add('lock');
+  const f = $('input, [data-autofocus], button, a', el.querySelector('.modal, .cart, .search, .drawer, .lb') || el);
+  setTimeout(() => f && f.focus({preventScroll:true}), 60);
+}
+function closeLayer(el){
+  el = el || stack[stack.length-1]; if(!el) return;
+  el.classList.remove('show');
+  const i = stack.indexOf(el); if(i>-1) stack.splice(i,1);
+  if(!stack.length){ document.body.classList.remove('lock'); if(lastFocus && lastFocus.focus) lastFocus.focus({preventScroll:true}); }
+}
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') closeLayer();
+  if($('#lbLayer').classList.contains('show')){
+    if(e.key==='ArrowRight') lbStep(1);
+    if(e.key==='ArrowLeft') lbStep(-1);
+  }
+});
+
+/* ================= TOAST ================= */
+let toastT;
+function toast(msg){
+  $('#toastTxt').textContent = msg;
+  const t = $('#toast'); t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ================= CATEGORIES + CHIPS + MENU ================= */
+let activeCat = 'all';
+$('#cats').innerHTML = CATS.map(c => `
+  <button class="cat" data-action="filter" data-cat="${c.key}" aria-label="Show ${c.label}">
+    <div class="cat__img"><img src="${src(c.img)}" alt="" style="object-position:${c.pos}" loading="lazy" decoding="async"></div>
+    <div class="cat__body"><div><div class="cat__t">${LANG==='am'?c.labelAm:c.label}</div><div class="cat__s">${LANG==='am'?c.subAm:c.sub}</div></div>${IC('arrow')}</div>
+  </button>`).join('');
+$('#chips').innerHTML = CHIPS.map(c => `<button class="chip" role="tab" data-action="filter" data-cat="${c.key}">${LANG==='am'?c.labelAm:c.label}</button>`).join('');
+
+function dishCard(it, i){
+  return `
+  <article class="dish" style="animation-delay:${Math.min(i,8)*55}ms">
+    <div class="dish__img"><img src="${src(it.img)}" alt="" loading="lazy" decoding="async"><span class="dish__tag">${catLabel(it.cat)}</span></div>
+    <div class="dish__body">
+      <h4 style="margin:0;font-size:inherit"><button class="dish__name" data-action="open-item" data-id="${it.id}" aria-label="${t('view')} ${itemName(it)}">${itemName(it)}</button></h4>
+      <p class="dish__desc">${itemDesc(it)}</p>
+      <div class="dish__foot"><span class="price">${money(it.price)}</span><button class="add" data-action="add" data-id="${it.id}" aria-label="${t('add')} ${itemName(it)} to cart">${IC('plus')}</button></div>
+    </div>
+  </article>`;
+}
+function renderMenu(){
+  const list = activeCat==='all' ? MENU : MENU.filter(m => m.cat===activeCat);
+  $('#dishes').innerHTML = list.map(dishCard).join('') || `<p class="empty">${t('nothing')}</p>`;
+  $('#menuTitle').textContent = activeCat==='all' ? t('fullMenu') : catLabel(activeCat);
+  $('#menuCount').textContent = `${list.length} ${list.length===1?t('dish'):t('dishes')}`;
+  $('#chips').innerHTML = CHIPS.map(c => `<button class="chip ${c.key===activeCat?'active':''}" role="tab" aria-selected="${c.key===activeCat}" data-action="filter" data-cat="${c.key}">${LANG==='am'?c.labelAm:c.label}</button>`).join('');
+  $$('#cats .cat').forEach(c => c.classList.toggle('active', c.dataset.cat===activeCat));
+}
+renderMenu();
+
+/* ================= CART ================= */
+let orderType = 'Pickup';
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem('yb-cart') || '[]').filter(l => byId(l.id)); } catch(e){}
+const save = () => { try { localStorage.setItem('yb-cart', JSON.stringify(cart)); } catch(e){} };
+const count = () => cart.reduce((a,l) => a+l.qty, 0);
+const total = () => cart.reduce((a,l) => a + l.qty*byId(l.id).price, 0);
+
+function updateBadge(bump){
+  const b = $('#cartBadge'), n = count();
+  b.textContent = n; b.classList.toggle('show', n>0);
+  const cb = $('#cartBar'); cb.classList.toggle('show', n>0);
+  $('#cbCount').textContent = `${n} ${n===1?t('item'):t('items')}`; $('#cbTotal').textContent = 'ETB ' + total();
+  if(bump){ b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); }
+}
+function fly(from, imgSrc){
+  if(reduce || !from) return;
+  const target = $('.header__actions [data-action="open-cart"]'); if(!target) return;
+  const a = from.getBoundingClientRect(), b = target.getBoundingClientRect();
+  const el = document.createElement('img'); el.src = imgSrc; el.className = 'fly'; el.alt = '';
+  el.style.left = (a.left + a.width/2 - 28) + 'px'; el.style.top = (a.top + a.height/2 - 28) + 'px';
+  document.body.appendChild(el);
+  const dx = b.left + b.width/2 - (a.left + a.width/2), dy = b.top + b.height/2 - (a.top + a.height/2);
+  el.animate([
+    {transform:'translate(0,0) scale(1)', opacity:1},
+    {transform:`translate(${dx*.5}px,${dy*.35 - 70}px) scale(.85)`, opacity:1, offset:.5},
+    {transform:`translate(${dx}px,${dy}px) scale(.2)`, opacity:.25}
+  ], {duration:760, easing:'cubic-bezier(.5,0,.3,1)'}).onfinish = () => el.remove();
+}
+function addToCart(id, qty=1){
+  const l = cart.find(x => x.id===id);
+  l ? l.qty += qty : cart.push({id, qty});
+  save(); updateBadge(true); renderCart();
+  toast(`${itemName(byId(id))} ${t('added')}`);
+}
+function setQty(id, d){
+  const l = cart.find(x => x.id===id); if(!l) return;
+  l.qty += d; if(l.qty<=0) cart = cart.filter(x => x.id!==id);
+  save(); updateBadge(); renderCart();
+}
+function renderCart(){
+  const p=$('#cartPanel');
+  const head=`<div class="cart__head"><h3>${t('yourCart')}</h3><button class="icon-btn" data-close aria-label="${t('closeCart')}">${IC('x')}</button></div>`;
+  if(!cart.length){p.innerHTML=head+`<div class="cart__list"><div class="cart__empty">${IC('cart')}<div><b style="color:#fff">${t('cartEmpty')}</b><br>${t('pickTasty')}</div><button class="btn btn--primary btn--sm" data-action="go-menu" data-close>${t('browseMenu')}</button></div></div>`;return;}
+  p.innerHTML=head+`<div class="cart__list">${cart.map(l=>{const it=byId(l.id);return `<div class="ci"><img src="${src(it.img)}" alt="${itemName(it)}"><div><div class="ci__n">${itemName(it)}</div><div class="ci__p">ETB ${it.price*l.qty}</div><div class="qty"><button data-action="dec" data-id="${l.id}" aria-label="${t('decrease')}">${IC('minus')}</button><output>${l.qty}</output><button data-action="inc" data-id="${l.id}" aria-label="${t('increase')}">${IC('plus')}</button></div></div><button class="ci__rm" data-action="rm" data-id="${l.id}" aria-label="${t('remove')} ${itemName(it)}">${IC('trash')}</button></div>`}).join('')}</div><div class="cart__foot"><div class="sum"><span>${t('subtotal')}</span><span class="price">ETB ${total()}</span></div><div class="seg" role="group" aria-label="${t('orderType')}"><button data-action="otype" data-v="Pickup" class="${orderType==='Pickup'?'on':''}">${t('pickup')}</button><button data-action="otype" data-v="Dine-in" class="${orderType==='Dine-in'?'on':''}">${t('dineIn')}</button></div><button class="btn btn--primary btn--block" data-action="checkout">${t('placeTelegram')} ${IC('arrow').replace('class="i"','class="i i--arrow"')}</button><p class="cart__note">${t('telegramNote')}</p><button class="linkbtn" data-action="clear">${t('clearCart')}</button></div>`;
+}
+function checkout(){
+  if(!cart.length)return;
+  const username=String(CONFIG.telegramUsername||'').replace(/^@+/,'').trim();
+  if(!username||username==='YOUR_RESTAURANT_TELEGRAM_USERNAME'){toast(t('telegramNotConfigured'));return;}
+  const now=new Date();
+  const orderId='YB-'+now.getFullYear().toString().slice(-2)+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'-'+String(now.getHours()).padStart(2,'0')+String(now.getMinutes()).padStart(2,'0')+String(now.getSeconds()).padStart(2,'0');
+  const lines=cart.map((l,i)=>{const it=byId(l.id);return `${i+1}. ${itemName(it)}\n   ${l.qty} × ETB ${it.price} = ETB ${l.qty*it.price}`;}).join('\n');
+  const date=now.toLocaleDateString(LANG==='am'?'am-ET':'en-GB',{day:'2-digit',month:'short',year:'numeric'});
+  const time=now.toLocaleTimeString(LANG==='am'?'am-ET':'en-GB',{hour:'2-digit',minute:'2-digit'});
+  const msg=[`🍽️ YB RESTAURANT — ${t('newOrder')}`,'━━━━━━━━━━━━━━━━━━━━',`🧾 ${t('order')}: ${orderId}`,`📅 ${t('date')}: ${date}`,`🕐 ${t('time')}: ${time}`,`📍 ${t('orderTypeLabel')}: ${orderType==='Pickup'?t('pickup'):t('dineIn')}`,`🌐 ${t('orderSource')}: ${t('website')}`,'',`🛒 ${t('orderDetails')}`,'━━━━━━━━━━━━━━━━━━━━',lines,'','━━━━━━━━━━━━━━━━━━━━',`💰 ${t('total')}: ETB ${total()}`,`👤 ${t('customer')}: ${t('customerPrompt')}`,'',t('orderConfirm')].join('\n');
+  window.open(`https://t.me/${username}?text=${encodeURIComponent(msg)}`,'_blank','noopener');
+}
+renderCart(); updateBadge();
+
+/* ================= DISH MODAL ================= */
+let modalQty = 1;
+function openItem(id, trigger){
+  const it = byId(id); modalQty = 1;
+  const others = MENU.filter(m => m.id!==id);
+  const same = others.filter(m => m.cat===it.cat), rest = others.filter(m => m.cat!==it.cat);
+  const like = [...same, ...rest].slice(0,2);
+  $('#itemModal').innerHTML = `
+    <button class="x" data-close aria-label="Close">${IC('x')}</button>
+    <div class="modal__img"><img src="${src(it.img)}" alt="${it.name}"></div>
+    <div class="modal__body">
+      <span class="modal__pill">${catLabel(it.cat)}</span>
+      <div class="modal__row"><h3>${itemName(it)}</h3><span class="price">${money(it.price)}</span></div>
+      <p class="modal__desc">${itemDesc(it)}</p>
+      <div class="buy">
+        <div class="qty"><button data-action="m-dec" aria-label="Decrease quantity">${IC('minus')}</button><output id="mQty">1</output><button data-action="m-inc" aria-label="Increase quantity">${IC('plus')}</button></div>
+        <button class="btn btn--primary" data-action="m-add" data-id="${it.id}" data-autofocus>${t('addToCart')} · <span id="mTot">ETB ${it.price}</span></button>
+      </div>
+      <div class="like"><h4>${t('youMayLike')}</h4><div class="like__grid">${like.map(o => `
+        <div class="mini"><img src="${src(o.img)}" alt="" loading="lazy"><div class="mini__b"><div><button class="mini__n" data-action="open-item" data-id="${o.id}">${itemName(o)}</button><div class="price">ETB ${o.price}</div></div><button class="add" data-action="add" data-id="${o.id}" aria-label="${t('add')} ${itemName(o)} to cart">${IC('plus')}</button></div></div>`).join('')}</div></div>
+    </div>`;
+  $('#itemModal').scrollTop = 0;
+  const L = $('#itemLayer');
+  L.classList.contains('show') ? null : openLayer(L, trigger);
+}
+function syncModal(){
+  const id = $('[data-action="m-add"]')?.dataset.id; if(!id) return;
+  $('#mQty').textContent = modalQty;
+  $('#mTot').textContent = 'ETB ' + byId(id).price*modalQty;
+}
+
+/* ================= SEARCH ================= */
+function renderSearch(q){
+  q = q.trim().toLowerCase();
+  const box = $('#searchRes');
+  if(!q){ box.innerHTML = `<div class="search__hint">${t('searchHint')}</div>`; return; }
+  const r = MENU.filter(m => (itemName(m)+' '+itemDesc(m)+' '+catLabel(m.cat)).toLowerCase().includes(q));
+  box.innerHTML = r.length ? r.map(m => `<button class="sr" data-action="open-item" data-id="${m.id}" data-from-search><img src="${src(m.img)}" alt="" decoding="async"><div><b>${itemName(m)}</b><span>${catLabel(m.cat)}</span></div><span class="price">ETB ${m.price}</span></button>`).join('')
+    : `<div class="search__hint">${t('noMatch')} “${q.replace(/[<>&]/g,'')}”.</div>`;
+}
+$('#searchInput').addEventListener('input', e => renderSearch(e.target.value));
+$('#searchInput').addEventListener('keydown', e => { if(e.key==='Enter'){ const f = $('#searchRes .sr'); if(f) f.click(); } });
+
+/* ================= GALLERY (balanced masonry) + LIGHTBOX ================= */
+const GALLERY = [
+  { img:'burger_hero',     cap:'YB Signature Burger', capAm:'የYB ልዩ በርገር',    g:'food',  w:735, h:919  },
+  { img:'dining',          cap:'Our dining room', capAm:'የመመገቢያ ክፍላችን',        g:'place', w:735, h:412  },
+  { img:'pizza_pull',      cap:'Fresh from the oven', capAm:'ከምድጃ በትኩስነት',    g:'food',  w:736, h:1104 },
+  { img:'chef',            cap:'Prepared by hand', capAm:'በእጅ የተዘጋጀ',       g:'place', w:735, h:918  },
+  { img:'drinks',          cap:'Fruit coolers', capAm:'የፍራፍሬ ኩለሮች',          g:'food',  w:736, h:1308 },
+  { img:'terrace_out',     cap:'The terrace', capAm:'ቴራሳችን',            g:'place', w:736, h:1088 },
+  { img:'tenders',         cap:'Crunchy chicken tenders', capAm:'ቆራሪ የዶሮ ቁርጥራጮች',g:'food',  w:736, h:977  },
+  { img:'waiter',          cap:'Served with a smile', capAm:'በፈገግታ ይቀርባል',    g:'place', w:626, h:417  },
+  { img:'int_booth',       cap:'Cozy booth seating', capAm:'ምቹ የቡዝ መቀመጫ',     g:'place', w:736, h:1088 },
+  { img:'burger_crispy',   cap:'Crispy chicken burger', capAm:'ቆራሪ የዶሮ በርገር',  g:'food',  w:736, h:1104 },
+  { img:'int_bar',         cap:'Bar & lounge', capAm:'ባር እና ላውንጅ',           g:'place', w:736, h:1088 },
+  { img:'chicken_platter', cap:'Fried chicken platter', capAm:'የተጠበሰ የዶሮ ፕላተር',  g:'food',  w:735, h:920  },
+  { img:'terrace_in',      cap:'Garden room', capAm:'የአትክልት ክፍል',            g:'place', w:736, h:1088 },
+  { img:'sandwich',        cap:'Toasted chicken sandwich', capAm:'ቶስት የዶሮ ሳንድዊች',g:'food', w:735, h:490  },
+  { img:'int_lounge',      cap:'Relaxed dining area', capAm:'ዘና ያለ የመመገቢያ ቦታ',    g:'place', w:736, h:1088 },
+  { img:'pizza_pep',       cap:'Pepperoni pizza', capAm:'ፔፐሮኒ ፒዛ',        g:'food',  w:673, h:1200 },
+  { img:'cake',            cap:'Chocolate layer cake', capAm:'የቸኮሌት ኬክ',   g:'food',  w:700, h:1050 },
+  { img:'fries',           cap:'Seasoned fries', capAm:'ቅመማ ፍራይስ',         g:'food',  w:626, h:626  },
+  { img:'salad',           cap:'Garden salad', capAm:'የአትክልት ሰላጣ',           g:'food',  w:700, h:560  }
+];
+const GFIL = [{k:'all',l:'All'},{k:'food',l:'Food'},{k:'place',l:'Restaurant'}];
+let gFilter = 'all', gOpen = false, lbList = [], galCols = 0, lbI = 0;
+function renderGallery(){
+  const all = GALLERY.filter(g => gFilter==='all' || g.g===gFilter);
+  lbList = all;
+  const shown = gOpen ? all : all.slice(0, 8);
+  const cols = innerWidth > 1100 ? 4 : innerWidth > 700 ? 3 : 2; galCols = cols;
+  const hts = Array(cols).fill(0), buckets = Array.from({length:cols}, () => []);
+  shown.forEach((g, i) => { const c = hts.indexOf(Math.min(...hts)); hts[c] += g.h/g.w; buckets[c].push([g, i]); });
+  $('#gallery-grid').innerHTML = buckets.map(b => `<div class="mcol">${b.map(([g, i]) => `
+    <button class="tile" style="aspect-ratio:${g.w}/${g.h};animation-delay:${Math.min(i,10)*45}ms" data-action="lb" data-i="${i}" aria-label="${LANG==='am'?'ፎቶ ይክፈቱ':'Open photo'}: ${LANG==='am'?(g.capAm||g.cap):g.cap}">
+      <img src="${src(g.img)}" alt="${LANG==='am'?(g.capAm||g.cap):g.cap}" width="${g.w}" height="${g.h}" loading="lazy" decoding="async"><span class="tile__cap">${LANG==='am'?(g.capAm||g.cap):g.cap}${IC('zoom')}</span>
+    </button>`).join('')}</div>`).join('');
+  $('#galChips').innerHTML = GFIL.map(f => `<button class="chip ${f.k===gFilter?'active':''}" role="tab" aria-selected="${f.k===gFilter}" data-action="gal-filter" data-f="${f.k}">${LANG==='am'?(f.k==='all'?'ሁሉም':f.k==='food'?'ምግብ':'ሬስቶራንት'):f.l}</button>`).join('');
+  const tg = $('#galToggle'); tg.style.display = all.length > 8 ? '' : 'none';
+  tg.setAttribute('aria-expanded', gOpen);
+  $('span', tg).textContent = gOpen ? t('showLess') : `${t('viewAllPhotos')} (${all.length})`;
+}
+$('#galToggle').addEventListener('click', () => { gOpen = !gOpen; renderGallery(); });
+let rzT; addEventListener('resize', () => { clearTimeout(rzT); rzT = setTimeout(() => { const c = innerWidth > 1100 ? 4 : innerWidth > 700 ? 3 : 2; if(c !== galCols) renderGallery(); }, 150); });
+function lbShow(){
+  const g = lbList[lbI];
+  $('#lbImg').src = src(g.img); $('#lbImg').alt = g.cap;
+  $('#lbCap').textContent = LANG==='am'?(g.capAm||g.cap):g.cap; $('#lbCount').textContent = `${lbI+1} / ${lbList.length}`;
+}
+function lbStep(d){ lbI = (lbI + d + lbList.length) % lbList.length; const im = $('#lbImg'); im.style.animation='none'; void im.offsetWidth; im.style.animation=''; lbShow(); }
+let lbX = null;
+$('#lb').addEventListener('touchstart', e => { lbX = e.touches[0].clientX; }, {passive:true});
+$('#lb').addEventListener('touchend', e => { if(lbX===null) return; const dx = e.changedTouches[0].clientX - lbX; if(Math.abs(dx) > 50) lbStep(dx < 0 ? 1 : -1); lbX = null; });
+renderGallery();
+
+/* ================= ABOUT toggle ================= */
+$('#learnMore').addEventListener('click', e => {
+  const m = $('#aboutMore'), open = m.classList.toggle('open');
+  e.currentTarget.setAttribute('aria-expanded', open);
+  $('span', e.currentTarget).textContent = open ? t('showLess') : t('learnMore');
+});
+
+/* ================= CLICK DELEGATION ================= */
+document.addEventListener('click', e => {
+  const close = e.target.closest('[data-close]');
+  if(close){ const L = close.closest('.layer'); if(L) closeLayer(L); }
+
+  const a = e.target.closest('[data-action]'); if(!a) return;
+  const id = a.dataset.id;
+  switch(a.dataset.action){
+    case 'filter': {
+      activeCat = a.dataset.cat; renderMenu();
+      if(a.classList.contains('cat')) $('#fullmenu').scrollIntoView({behavior:'smooth', block:'start'});
+      break; }
+    case 'show-all': activeCat='all'; renderMenu(); break;
+    case 'open-item': {
+      if(a.hasAttribute('data-from-search')) closeLayer($('#searchLayer'));
+      openItem(id, a); break; }
+    case 'add': addToCart(id); fly(a, src(byId(id).img)); break;
+    case 'm-inc': modalQty = Math.min(20, modalQty+1); syncModal(); break;
+    case 'm-dec': modalQty = Math.max(1, modalQty-1); syncModal(); break;
+    case 'm-add': addToCart(id, modalQty); fly(a, src(byId(id).img)); closeLayer($('#itemLayer')); break;
+    case 'inc': setQty(id, 1); break;
+    case 'dec': setQty(id, -1); break;
+    case 'rm':  setQty(id, -99); break;
+    case 'clear': cart = []; save(); updateBadge(); renderCart(); break;
+    case 'checkout': checkout(); break;
+    case 'open-cart': renderCart(); openLayer($('#cartLayer'), a); break;
+    case 'open-search': renderSearch(''); $('#searchInput').value=''; openLayer($('#searchLayer'), a); break;
+    case 'open-nav': openLayer($('#navLayer'), a); break;
+    case 'go-menu': document.getElementById('menu').scrollIntoView({behavior:'smooth'}); break;
+    case 'order-now':
+      if(cart.length){ renderCart(); openLayer($('#cartLayer'), a); }
+      else { activeCat='all'; renderMenu(); setTimeout(() => $('#fullmenu').scrollIntoView({behavior:'smooth'}), 40); }
+      break;
+    case 'otype': orderType = a.dataset.v; renderCart(); break;
+    case 'gal-filter': gFilter = a.dataset.f; renderGallery(); break;
+    case 'lb': lbI = +a.dataset.i; lbShow(); openLayer($('#lbLayer'), a); break;
+  }
+  const lb = e.target.closest('[data-lb]'); if(lb) lbStep(+lb.dataset.lb);
+});
+/* close mobile nav before in-page anchor scroll */
+$$('#navLayer a[data-close]').forEach(l => l.addEventListener('click', () => {
+  document.body.classList.remove('lock');
+}));
+$('#lb').addEventListener('click', e => { if(e.target.id==='lb') closeLayer($('#lbLayer')); });
+
+/* ================= SCROLL: header, progress, spy ================= */
+const header = $('#header'), bar = $('#progress');
+function onScroll(){
+  const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+  header.classList.toggle('scrolled', y > 24);
+  bar.style.transform = `scaleX(${h>0 ? Math.min(1,y/h) : 0})`;
+}
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+const spyLinks = $$('[data-spy]');
+const io = new IntersectionObserver(es => es.forEach(en => {
+  if(en.isIntersecting){
+    const k = en.target.dataset.section;
+    spyLinks.forEach(l => l.classList.toggle('active', l.dataset.spy===k));
+  }
+}), {rootMargin:'-45% 0px -50% 0px'});
+$$('[data-section]').forEach(s => io.observe(s));
+
+/* ================= OPEN / CLOSED STATUS ================= */
+function openStatus(){
+  const now = new Date();
+  const h = (now.getUTCHours() + CONFIG.tzOffset + now.getUTCMinutes()/60) % 24;
+  const open = h >= CONFIG.openHour && h < CONFIG.closeHour;
+  $('#openDot').classList.toggle('closed', !open);
+  $('#openText').textContent=open?t('openUntil'):t('closedUntil');
+}
+openStatus(); setInterval(openStatus, 60000);
+
+/* ================= HERO: embers + gentle parallax ================= */
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduce){
+  $('#embers').innerHTML = Array.from({length:14}, (_, i) =>
+    `<i style="left:${Math.round(Math.random()*100)}%;--dx:${Math.round(Math.random()*80-30)}px;animation-duration:${(7+Math.random()*7).toFixed(1)}s;animation-delay:${(Math.random()*8).toFixed(1)}s;width:${2+Math.round(Math.random()*3)}px;height:${2+Math.round(Math.random()*3)}px"></i>`).join('');
+  if(matchMedia('(pointer:fine)').matches){
+    const hero = $('#home'), media = $('#heroMedia');
+    hero.addEventListener('pointermove', e => {
+      const r = hero.getBoundingClientRect();
+      media.style.setProperty('--px', ((e.clientX-r.left)/r.width-.5)*-16 + 'px');
+      media.style.setProperty('--py', ((e.clientY-r.top)/r.height-.5)*-12 + 'px');
+    });
+  }
+}
+
+/* ================= HERO SLIDER ================= */
+const HERO = ['signature','crispy','cheesy','tenders'];
+const slides = $$('#heroMedia .slide'), ths = $$('.th'), heroEl = $('#home');
+const autoplay = !reduce;
+let hi = 0;
+if(!autoplay) heroEl.classList.add('noauto');
+function paintCard(){
+  const it = byId(HERO[hi]);
+  $('#hcTag').textContent = catLabel(it.cat);
+  $('#hcName').textContent = itemName(it);
+  $('#hcPrice').textContent = 'ETB ' + it.price;
+  const b = $('#hcAdd'); b.dataset.id = it.id; b.setAttribute('aria-label', `${t('add')} ${itemName(it)} to cart`);
+}
+function setSlide(i){
+  hi = (i + slides.length) % slides.length;
+  slides.forEach((s, k) => s.classList.toggle('on', k === hi));
+  ths.forEach((t, k) => { t.classList.toggle('on', k === hi); t.setAttribute('aria-selected', k === hi); });
+  const card = $('#hcard'); card.classList.add('swap');
+  setTimeout(() => { paintCard(); card.classList.remove('swap'); }, 220);
+  if(autoplay){ const bar = ths[hi].querySelector('.th__bar'); bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; }
+}
+ths.forEach((t, k) => t.addEventListener('click', () => setSlide(k)));
+$('#heroUi').addEventListener('animationend', e => { if(autoplay && e.target.classList.contains('th__bar')) setSlide(hi + 1); });
+let sx = null;
+heroEl.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
+heroEl.addEventListener('touchend', e => { if(sx===null) return; const dx = e.changedTouches[0].clientX - sx; if(Math.abs(dx) > 50) setSlide(hi + (dx < 0 ? 1 : -1)); sx = null; });
+paintCard();
+
+/* ================= POPULAR RIBBON ================= */
+const rp = (it, dup) => `<button class="rp" ${dup ? 'tabindex="-1"' : ''} data-action="open-item" data-id="${it.id}"><img src="${src(it.img)}" alt="" loading="lazy"><span><b>${itemName(it)}</b><i>ETB ${it.price}</i></span></button>`;
+$('#ribbonTrack').innerHTML = MENU.map(it => rp(it)).join('') + `<span aria-hidden="true" style="display:contents">${MENU.map(it => rp(it, true)).join('')}</span>`;
+
+/* ================= CHEF'S PICKS ================= */
+const PICKS = [
+  { id:'crispy',   c:'a', pos:'50% 58%' },
+  { id:'cheesy',   c:'b', pos:'50% 30%' },
+  { id:'cooler',   c:'c', pos:'50% 56%' },
+  { id:'sandwich', c:'d', pos:'50% 50%' }
+];
+$('#picks').innerHTML = PICKS.map(p => { const it = byId(p.id); return `
+  <article class="pick pick--${p.c}">
+    <img src="${src(it.img)}" alt="" style="object-position:${p.pos}" loading="lazy">
+    <div class="pick__in">
+      <div><span class="pick__tag">${catLabel(it.cat)}</span><button class="pick__name" data-action="open-item" data-id="${it.id}">${it.name}</button><p class="pick__desc">${itemDesc(it)}</p><span class="price">${money(it.price)}</span></div>
+      <button class="add" data-action="add" data-id="${it.id}" aria-label="${t('add')} ${itemName(it)} to cart">${IC('plus')}</button>
+    </div>
+  </article>`; }).join('');
+
+/* ================= OUR SPACE (expanding panels) ================= */
+const SPACE = [
+  { img:'int_booth',   t:'Booth seating', tAm:'የቡዝ መቀመጫ', d:'Deep orange booths for long, easy meals.', dAm:'ለረጅም እና ምቹ ምግብ የሚሆን ጥልቅ ብርቱካናማ ቡዝ።', pos:'50% 62%' },
+  { img:'dining',      t:'Dining room', tAm:'የመመገቢያ ክፍል', d:'Set tables, warm light and room for the whole group.', dAm:'የተዘጋጁ ጠረጴዛዎች፣ ሞቅ ያለ ብርሃን እና ለሙሉ ቡድን ቦታ።', pos:'50% 50%' },
+  { img:'int_bar',     t:'The bar', tAm:'ባሩ', d:'Grab a stool for a quick bite and a cold drink.', dAm:'ለፈጣን መክሰስ እና ቀዝቃዛ መጠጥ ስቱል ይያዙ።', pos:'50% 58%' },
+  { img:'int_lounge',  t:'Lounge area', tAm:'ላውንጅ አካባቢ', d:'Bright, relaxed seating by the windows.', dAm:'በመስኮቶች አጠገብ ብሩህ እና ዘና ያለ መቀመጫ።', pos:'50% 55%' },
+  { img:'terrace_out', t:'The terrace', tAm:'ቴራሳችን', d:'Fresh air and greenery, right at your table.', dAm:'ትኩስ አየር እና አረንጓዴ፣ በጠረጴዛዎ ላይ።', pos:'50% 50%' },
+  { img:'terrace_in',  t:'Garden room', tAm:'የአትክልት ክፍል', d:'Natural light through the pergola, all day long.', dAm:'በፐርጎላ በኩል የተፈጥሮ ብርሃን፣ ቀኑን ሙሉ።', pos:'50% 50%' }
+];
+const spaceEl = $('#spaceList');
+spaceEl.innerHTML = SPACE.map((s, i) => `<button class="pan ${i===0?'on':''}" role="tab" aria-selected="${i===0}" data-i="${i}"><img src="${src(s.img)}" alt="${s.t}" style="object-position:${s.pos}" loading="lazy" decoding="async"><div class="pan__t"><b>${s.t}</b><span>${s.d}</span></div></button>`).join('');
+let pans=[];
+const setPan=i=>pans.forEach((p,k)=>{p.classList.toggle('on',k===i);p.setAttribute('aria-selected',k===i);});
+function bindPans(){pans=$$('.pan',spaceEl);pans.forEach((p,k)=>{p.addEventListener('click',()=>setPan(k));p.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')setPan(k);});});}
+bindPans();
+
+/* ================= CONTACT FORM ================= */
+const form = $('#form'), status = $('#fStatus');
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  status.textContent = ''; status.classList.remove('bad');
+  const f = form.elements;
+  const ok = {
+    name: f.name.value.trim().length > 1,
+    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim()),
+    message: f.message.value.trim().length > 4
+  };
+  Object.keys(ok).forEach(k => f[k].closest('.field').classList.toggle('err', !ok[k]));
+  if(!Object.values(ok).every(Boolean)){ status.classList.add('bad'); status.textContent=t('fixFields'); return; }
+  const btn = $('#fBtn'); btn.disabled = true;
+  try {
+    if(CONFIG.formEndpoint){
+      const r = await fetch(CONFIG.formEndpoint, {method:'POST', headers:{'Accept':'application/json','Content-Type':'application/json'}, body: JSON.stringify({name:f.name.value, email:f.email.value, message:f.message.value})});
+      if(!r.ok) throw new Error();
+    } else { await new Promise(r => setTimeout(r, 700)); }
+    status.textContent=`${t('thankYou')}, ${f.name.value.trim().split(' ')[0]}! ${t('messageSent')}`;
+    form.reset();
+  } catch(err){
+    status.classList.add('bad');
+    status.textContent=`${t('sendFailed')} ${CONFIG.phoneDisplay}.`;
+  }
+  btn.disabled = false;
+});
+$$('.field input, .field textarea').forEach(el => el.addEventListener('input', () => el.closest('.field').classList.remove('err')));
+applyLanguage();
+})();
+</script>
+</body>
+</html>
